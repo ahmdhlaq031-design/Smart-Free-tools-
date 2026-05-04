@@ -2,11 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الأدوات الذكية - أكثر من 30 أداة مجانية | محولات شاملة مع بحث ذكي</title>
-<meta name="description" content="أكثر من 30 أداة مجانية متطورة: حاسبة العمر الذكية (تدخل تاريخ يدوي)، محول العملات، محولات الأطوال والأوزان والحرارة والوقت والسرعة والمساحة والحجم والطاقة والزوايا، مولد كلمات مرور، وأدوات مفيدة مع 3 ثيمات متكاملة">
-<meta name="keywords" content="أدوات مجانية, محول عملات, حاسبة عمر, مولد كلمات مرور, محول وحدات">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>الأدوات الذكية - أكثر من 35 أداة مجانية | محولات شاملة مع بحث ذكي</title>
+<meta name="description" content="أكثر من 35 أداة مجانية متطورة: حاسبة العمر الذكية، آلة حاسبة متقدمة، محول العملات، محولات الوحدات، مؤقت وساعة توقيت، والمزيد مع دعم التثبيت كتطبيق">
+<meta name="keywords" content="أدوات مجانية, محول عملات, حاسبة عمر, آلة حاسبة, مولد كلمات مرور, محول وحدات, PWA">
 <meta name="author" content="General Fix Team">
+<meta name="theme-color" content="#6366f1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الأدوات الذكية">
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogItin2YTYqNmI2LHZhyDZhNmK2YrZg9mHIC0gMzUrINin2YTYp9iqINmF2LHYqNmK2KkiLAogICJzaG9ydF9uYW1lIjogItin2YT YqNmI2LHZhyDZhNmK2YrZg9mHIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBjMTUiLAogICJ0aGVtZV9jb2xvciI6ICIjNjM2NmYxIiwKICAibGFuZyI6ICJhciIsCiAgImRpciI6ICJydGwiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48dGV4dCB5PScuOWVtJyBmb250LXNpemU9JzkwJz7wn6e477iPPC90ZXh0Pjwvc3ZnPiIsCiAgICAgICJzaXplcyI6ICJhbnkiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfQogIF0KfQ==">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ========== المتغيرات الأساسية والثيمات الثلاثة ========== */
@@ -95,6 +100,7 @@ body {
     color: var(--text-primary);
     transition: background 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
+    padding-top: 80px;
 }
 
 /* خلفيات متحركة حسب الثيم */
@@ -118,6 +124,17 @@ body::after {
     background-size: 50px 50px;
     z-index: -1;
     pointer-events: none;
+}
+/* ========== شريط التحميل ========== */
+.loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient-1);
+    z-index: 99999;
+    width: 0%;
+    transition: width 0.3s ease;
 }
 
 /* ========== شريط البحث ========== */
@@ -145,10 +162,42 @@ body::after {
     box-shadow: 0 0 20px var(--primary-glow);
 }
 
+/* ========== شريط الاختصارات ========== */
+.shortcuts-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.shortcut-chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--text-secondary);
+}
+
+.shortcut-chip:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
 /* ========== الهيدر ========== */
 header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    width: 100%;
     z-index: 100;
     background: var(--bg-header);
     backdrop-filter: blur(20px);
@@ -157,7 +206,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    height: 70px;
 }
 
 header h1 {
@@ -229,6 +278,7 @@ header h1 {
     gap: 4px;
     cursor: pointer;
     transition: 0.3s;
+    z-index: 160;
 }
 
 .menu-btn span {
@@ -267,6 +317,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    overflow-y: auto;
 }
 
 .sidebar.open {
@@ -285,7 +336,7 @@ header h1 {
     cursor: pointer;
 }
 
-.sidebar a:hover {
+.sidebar a:hover, .sidebar a.active {
     background: rgba(99, 102, 241, 0.1);
     color: var(--primary);
 }
@@ -304,11 +355,12 @@ header h1 {
     opacity: 1;
     pointer-events: auto;
 }
-
 /* ========== الأقسام ========== */
 section {
     padding: 40px 20px;
     display: none;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 section.active-section {
@@ -363,6 +415,25 @@ section.active-section {
     box-shadow: var(--shadow-lg);
 }
 
+.tool-card.featured {
+    border: 2px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-card.featured::before {
+    content: '✨ مميز';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--gradient-1);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .tool-header {
     display: flex;
     align-items: center;
@@ -401,7 +472,6 @@ section.active-section {
     font-family: 'Cairo', sans-serif;
     outline: none;
 }
-
 /* ========== مكونات البحث داخل المحولات ========== */
 .converter-search {
     position: relative;
@@ -488,6 +558,50 @@ section.active-section {
     opacity: 0.9;
 }
 
+/* أزرار الآلة الحاسبة */
+.calc-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    color: var(--text-primary);
+    font-family: 'Cairo', sans-serif;
+}
+
+.calc-btn:hover {
+    background: var(--primary-glow);
+    transform: scale(1.05);
+}
+
+.calc-btn:active {
+    transform: scale(0.95);
+}
+
+/* سجل العمليات */
+.history-panel {
+    background: var(--bg-input);
+    border-radius: 12px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.history-item:hover {
+    background: var(--primary-glow);
+}
+
 /* تفاصيل إضافية لحاسبة العمر */
 .age-detail {
     font-size: 12px;
@@ -496,7 +610,6 @@ section.active-section {
     padding-top: 8px;
     border-top: 1px solid var(--border-color);
 }
-
 /* ========== قسم المواقع الأخرى ========== */
 .other-sites {
     max-width: 800px;
@@ -602,6 +715,24 @@ footer {
     color: var(--text-secondary);
 }
 
+/* ========== شاشة تثبيت التطبيق ========== */
+.install-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    padding: 15px 25px;
+    z-index: 9999;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    max-width: 90%;
+    display: none;
+}
+
 /* ========== الإشعارات المنبثقة ========== */
 .notification {
     position: fixed;
@@ -613,7 +744,7 @@ footer {
     padding: 12px 25px;
     border-radius: 50px;
     font-weight: 600;
-    z-index: 1000;
+    z-index: 10000;
     animation: fadeOut 2.5s ease forwards;
 }
 
@@ -635,6 +766,60 @@ footer {
     }
 }
 
+/* ========== زر العودة للأعلى ========== */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient-1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.back-to-top.visible {
+    display: flex;
+}
+
+/* ========== مؤشر الاتصال ========== */
+.connection-status {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--danger);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 10000;
+    display: none;
+}
+
+.connection-status.offline {
+    display: block;
+    background: var(--danger);
+}
+
+.connection-status.online {
+    display: block;
+    background: var(--success);
+}
 /* ========== استجابة للجوال ========== */
 @media (max-width: 768px) {
     .tools-grid {
@@ -660,6 +845,73 @@ footer {
     .menu-btn {
         right: 5px;
     }
+    .shortcuts-bar {
+        gap: 5px;
+    }
+    .shortcut-chip {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-switcher {
+        gap: 3px;
+        padding: 3px 5px;
+    }
+    .theme-option {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    header {
+        padding: 10px 15px;
+    }
+    header h1 {
+        font-size: 14px;
+    }
+}
+
+/* ========== تحسينات للطباعة ========== */
+@media print {
+    .sidebar, .theme-switcher, .menu-btn, .search-bar, 
+    .back-to-top, .shortcuts-bar, footer, .overlay,
+    .install-banner, .connection-status, .loading-bar {
+        display: none !important;
+    }
+    
+    .tool-card {
+        break-inside: avoid;
+        border: 1px solid #000;
+        box-shadow: none;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    body::before, body::after {
+        display: none;
+    }
+}
+
+/* ========== شريط التمرير ========== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
 
 .hidden {
@@ -668,6 +920,12 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- شريط التحميل -->
+<div class="loading-bar" id="loadingBar"></div>
+
+<!-- مؤشر الاتصال -->
+<div class="connection-status" id="connectionStatus">أنت غير متصل بالإنترنت - بعض الميزات قد لا تعمل</div>
 
 <!-- شاشة الترحيب والشروط (تظهر مرة واحدة) -->
 <div id="termsOverlay" class="terms-overlay">
@@ -687,7 +945,6 @@ footer {
         <p style="font-size: 12px; margin-top: 15px; color: var(--text-muted);">لن تظهر هذه الشاشة مرة أخرى على هذا المتصفح</p>
     </div>
 </div>
-
 <!-- الهيدر -->
 <header>
     <div class="theme-switcher">
@@ -727,7 +984,18 @@ footer {
 
 <!-- شريط البحث السريع -->
 <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 ابحث عن أداة (مثل: عمر، عملات، طول، حرارة...)" oninput="searchTools()">
+    <input type="text" id="searchInput" placeholder="🔍 ابحث عن أداة (مثل: عمر، عملات، طول، آلة حاسبة...)" oninput="searchTools()">
+</div>
+
+<!-- شريط الاختصارات السريعة -->
+<div class="shortcuts-bar" id="shortcutsBar">
+    <span class="shortcut-chip" onclick="scrollToTool('حاسبة العمر')">📅 حاسبة العمر</span>
+    <span class="shortcut-chip" onclick="scrollToTool('محول العملات')">💱 محول العملات</span>
+    <span class="shortcut-chip" onclick="scrollToTool('آلة حاسبة')">🧮 آلة حاسبة</span>
+    <span class="shortcut-chip" onclick="scrollToTool('مولد كلمات')">🔑 كلمات مرور</span>
+    <span class="shortcut-chip" onclick="scrollToTool('محول الأطوال')">📏 الأطوال</span>
+    <span class="shortcut-chip" onclick="scrollToTool('مؤقت')">⏱️ مؤقت</span>
+    <span class="shortcut-chip" onclick="scrollToTool('محول البيانات')">💾 البيانات</span>
 </div>
 <!-- القسم الرئيسي - الأدوات الأساسية -->
 <section id="home" class="active-section">
@@ -735,7 +1003,7 @@ footer {
     <div class="tools-grid" id="toolsGrid">
 
         <!-- ========== أداة 1: حاسبة العمر الذكية (مدخل يدوي) ========== -->
-        <div class="tool-card" data-name="حاسبة العمر عمر حساب سنوات أشهر أيام ساعات دقائق ثواني تاريخ ميلاد">
+        <div class="tool-card" data-name="حاسبة العمر عمر حساب سنوات أشهر أيام ساعات دقائق ثواني تاريخ ميلاد" id="tool-حاسبة العمر">
             <div class="tool-header">
                 <span class="tool-icon">📅</span>
                 <h3>حاسبة العمر الذكية</h3>
@@ -752,7 +1020,7 @@ footer {
         </div>
 
         <!-- ========== أداة 2: محول العملات العالمي ========== -->
-        <div class="tool-card" data-name="محول عملات صرف دولار يورو ليرة دينار ريال">
+        <div class="tool-card" data-name="محول عملات صرف دولار يورو ليرة دينار ريال" id="tool-محول العملات">
             <div class="tool-header">
                 <span class="tool-icon">💱</span>
                 <h3>محول العملات العالمي</h3>
@@ -777,7 +1045,7 @@ footer {
         </div>
 
         <!-- ========== أداة 3: مولد كلمات مرور فائق ========== -->
-        <div class="tool-card" data-name="كلمة مرور مولد generate password strong secure">
+        <div class="tool-card" data-name="كلمة مرور مولد generate password strong secure" id="tool-مولد كلمات">
             <div class="tool-header">
                 <span class="tool-icon">🔑</span>
                 <h3>مولد كلمات مرور فائق</h3>
@@ -797,254 +1065,376 @@ footer {
                 </div>
             </div>
         </div>
-
         <!-- ========== أداة 4: عداد الكلمات والحروف والجمل ========== -->
         <div class="tool-card" data-name="عد كلمات حروف جمل text counter letters words sentences">
-            <div class="tool-header">
-                <span class="tool-icon">📝</span>
-                <h3>عداد الكلمات والحروف والجمل</h3>
-            </div>
-            <div class="tool-content">
-                <textarea id="textInput" placeholder="اكتب أو الصق نصك هنا... سيقوم الموقع بحساب عدد الكلمات والحروف والجمل تلقائياً" rows="4"></textarea>
-                <button class="btn-primary" onclick="countWords()">احسب الكلمات والحروف والجمل</button>
-                <div class="result-area">
-                    <span class="result-value" id="wordCountResult">الكلمات: 0 | الحروف: 0 | الجمل: 0</span>
-                    <button class="copy-btn" onclick="copyText('wordCountResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📝</span>
+        <h3>عداد الكلمات والحروف والجمل</h3>
         </div>
-
+        <div class="tool-content">
+        <textarea id="textInput" placeholder="اكتب أو الصق نصك هنا... سيقوم الموقع بحساب عدد الكلمات والحروف والجمل تلقائياً" rows="4"></textarea>
+        <button class="btn-primary" onclick="countWords()">احسب الكلمات والحروف والجمل</button>
+        <div class="result-area">
+        <span class="result-value" id="wordCountResult">الكلمات: 0 | الحروف: 0 | الجمل: 0</span>
+        <button class="copy-btn" onclick="copyText('wordCountResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 5: حساب النسبة المئوية ========== -->
         <div class="tool-card" data-name="نسبة مئوية حساب خصم زيادة ratio percentage">
-            <div class="tool-header">
-                <span class="tool-icon">📊</span>
-                <h3>حاسبة النسبة المئوية</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="percentValue" placeholder="الرقم الأساسي" value="200">
-                <input type="number" id="percentPercent" placeholder="النسبة المئوية" value="15">
-                <button class="btn-primary" onclick="calculatePercentage()">احسب النسبة</button>
-                <div class="result-area">
-                    <span class="result-value" id="percentResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('percentResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📊</span>
+        <h3>حاسبة النسبة المئوية</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="percentValue" placeholder="الرقم الأساسي" value="200">
+        <input type="number" id="percentPercent" placeholder="النسبة المئوية" value="15">
+        <button class="btn-primary" onclick="calculatePercentage()">احسب النسبة</button>
+        <div class="result-area">
+        <span class="result-value" id="percentResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('percentResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 6: تشفير الروابط (URL Encode) ========== -->
         <div class="tool-card" data-name="تشفير رابط encode url">
-            <div class="tool-header">
-                <span class="tool-icon">🔗</span>
-                <h3>تشفير الروابط (URL Encode)</h3>
-            </div>
-            <div class="tool-content">
-                <textarea id="urlInput" placeholder="أدخل النص أو الرابط لتشفيره..." rows="3"></textarea>
-                <button class="btn-primary" onclick="encodeURL()">تشفير النص</button>
-                <div class="result-area">
-                    <span class="result-value" id="urlResult">النتيجة ستظهر هنا</span>
-                    <button class="copy-btn" onclick="copyText('urlResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🔗</span>
+        <h3>تشفير الروابط (URL Encode)</h3>
         </div>
-
+        <div class="tool-content">
+        <textarea id="urlInput" placeholder="أدخل النص أو الرابط لتشفيره..." rows="3"></textarea>
+        <button class="btn-primary" onclick="encodeURL()">تشفير النص</button>
+        <div class="result-area">
+        <span class="result-value" id="urlResult">النتيجة ستظهر هنا</span>
+        <button class="copy-btn" onclick="copyText('urlResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 7: فك تشفير الروابط (URL Decode) ========== -->
         <div class="tool-card" data-name="فك تشفير decode url">
-            <div class="tool-header">
-                <span class="tool-icon">🔓</span>
-                <h3>فك تشفير الروابط (URL Decode)</h3>
-            </div>
-            <div class="tool-content">
-                <textarea id="decodeInput" placeholder="أدخل الرابط المشفر لفك تشفيره..." rows="3"></textarea>
-                <button class="btn-primary" onclick="decodeURL()">فك التشفير</button>
-                <div class="result-area">
-                    <span class="result-value" id="decodeResult">النتيجة ستظهر هنا</span>
-                    <button class="copy-btn" onclick="copyText('decodeResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🔓</span>
+        <h3>فك تشفير الروابط (URL Decode)</h3>
         </div>
-
+        <div class="tool-content">
+        <textarea id="decodeInput" placeholder="أدخل الرابط المشفر لفك تشفيره..." rows="3"></textarea>
+        <button class="btn-primary" onclick="decodeURL()">فك التشفير</button>
+        <div class="result-area">
+        <span class="result-value" id="decodeResult">النتيجة ستظهر هنا</span>
+        <button class="copy-btn" onclick="copyText('decodeResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 8: الفرق بين تاريخين ========== -->
         <div class="tool-card" data-name="فرق تاريخ أيام سنوات أشهر">
-            <div class="tool-header">
-                <span class="tool-icon">📆</span>
-                <h3>الفرق بين تاريخين</h3>
-            </div>
-            <div class="tool-content">
-                <label>📅 التاريخ الأول:</label>
-                <input type="date" id="startDate" value="2024-01-01">
-                <label>📅 التاريخ الثاني:</label>
-                <input type="date" id="endDate" value="2025-01-01">
-                <button class="btn-primary" onclick="calculateDateDiff()">احسب الفرق بين التاريخين</button>
-                <div class="result-area">
-                    <span class="result-value" id="dateDiffResult">الفرق: -- يوم</span>
-                    <button class="copy-btn" onclick="copyText('dateDiffResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📆</span>
+        <h3>الفرق بين تاريخين</h3>
         </div>
-
+        <div class="tool-content">
+        <label>📅 التاريخ الأول:</label>
+        <input type="date" id="startDate" value="2024-01-01">
+        <label>📅 التاريخ الثاني:</label>
+        <input type="date" id="endDate" value="2025-01-01">
+        <button class="btn-primary" onclick="calculateDateDiff()">احسب الفرق بين التاريخين</button>
+        <div class="result-area">
+        <span class="result-value" id="dateDiffResult">الفرق: -- يوم</span>
+        <button class="copy-btn" onclick="copyText('dateDiffResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 9: كتابة التاريخ نصياً ========== -->
         <div class="tool-card" data-name="تاريخ كتابة نصي">
-            <div class="tool-header">
-                <span class="tool-icon">📅</span>
-                <h3>كتابة التاريخ نصياً</h3>
-            </div>
-            <div class="tool-content">
-                <input type="date" id="dateInput" value="2026-05-02">
-                <button class="btn-primary" onclick="writeDateInWords()">تحويل التاريخ إلى نص</button>
-                <div class="result-area">
-                    <span class="result-value" id="dateWordsResult">النتيجة ستظهر هنا</span>
-                    <button class="copy-btn" onclick="copyText('dateWordsResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📅</span>
+        <h3>كتابة التاريخ نصياً</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="date" id="dateInput" value="2026-05-02">
+        <button class="btn-primary" onclick="writeDateInWords()">تحويل التاريخ إلى نص</button>
+        <div class="result-area">
+        <span class="result-value" id="dateWordsResult">النتيجة ستظهر هنا</span>
+        <button class="copy-btn" onclick="copyText('dateWordsResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== أداة 10: الجذر التربيعي ========== -->
         <div class="tool-card" data-name="جذر تربيعي sqrt square root">
-            <div class="tool-header">
-                <span class="tool-icon">√</span>
-                <h3>الجذر التربيعي</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="sqrtValue" placeholder="أدخل الرقم" value="64">
-                <button class="btn-primary" onclick="calculateSquareRoot()">احسب الجذر التربيعي</button>
-                <div class="result-area">
-                    <span class="result-value" id="sqrtResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('sqrtResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">√</span>
+        <h3>الجذر التربيعي</h3>
         </div>
-    </div>
-</section>
-<!-- القسم الثاني: المحولات المتقدمة -->
-<section id="converters">
-    <h2 class="section-title">🔄 المحولات المتقدمة (واجهة بحث ذكية)</h2>
-    <div class="tools-grid">
-
+        <div class="tool-content">
+        <input type="number" id="sqrtValue" placeholder="أدخل الرقم" value="64">
+        <button class="btn-primary" onclick="calculateSquareRoot()">احسب الجذر التربيعي</button>
+        <div class="result-area">
+        <span class="result-value" id="sqrtResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('sqrtResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        <!-- ========== أداة 11: الآلة الحاسبة المتقدمة ========== -->
+        <div class="tool-card calculator-card featured" data-name="آلة حاسبة متقدمة calculator" id="tool-آلة حاسبة">
+        <div class="tool-header">
+        <span class="tool-icon">🧮</span>
+        <h3>آلة حاسبة متقدمة</h3>
+        </div>
+        <div class="tool-content">
+        <div style="background:var(--bg-input); border-radius:14px; padding:15px;">
+        <input type="text" id="calcDisplay" readonly style="font-size:24px; text-align:left; direction:ltr; margin-bottom:10px; background:transparent; border:none; color:var(--text-primary); width:100%;" value="0">
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+        <button onclick="calcInput('7')" class="calc-btn">7</button>
+        <button onclick="calcInput('8')" class="calc-btn">8</button>
+        <button onclick="calcInput('9')" class="calc-btn">9</button>
+        <button onclick="calcOperation('/')" class="calc-btn" style="background:var(--primary); color:white;">÷</button>
+        <button onclick="calcInput('4')" class="calc-btn">4</button>
+        <button onclick="calcInput('5')" class="calc-btn">5</button>
+        <button onclick="calcInput('6')" class="calc-btn">6</button>
+        <button onclick="calcOperation('*')" class="calc-btn" style="background:var(--primary); color:white;">×</button>
+        <button onclick="calcInput('1')" class="calc-btn">1</button>
+        <button onclick="calcInput('2')" class="calc-btn">2</button>
+        <button onclick="calcInput('3')" class="calc-btn">3</button>
+        <button onclick="calcOperation('-')" class="calc-btn" style="background:var(--primary); color:white;">−</button>
+        <button onclick="calcInput('0')" class="calc-btn">0</button>
+        <button onclick="calcInput('.')" class="calc-btn">.</button>
+        <button onclick="calcClear()" class="calc-btn" style="background:var(--danger); color:white;">C</button>
+        <button onclick="calcOperation('+')" class="calc-btn" style="background:var(--primary); color:white;">+</button>
+        <button onclick="calcInput('(')" class="calc-btn" style="font-size:12px;">(</button>
+        <button onclick="calcInput(')')" class="calc-btn" style="font-size:12px;">)</button>
+        <button onclick="calcBackspace()" class="calc-btn">⌫</button>
+        <button onclick="calcEqual()" class="calc-btn" style="background:var(--success); color:white; grid-row:span 2;">=</button>
+        <button onclick="calcFunction('sqrt')" class="calc-btn">√</button>
+        <button onclick="calcFunction('pow')" class="calc-btn">x²</button>
+        <button onclick="calcFunction('percent')" class="calc-btn">%</button>
+        </div>
+        </div>
+        <div class="history-panel" id="calcHistory" style="display:none;">
+        <strong>📜 سجل العمليات:</strong>
+        <div id="calcHistoryList"></div>
+        <button onclick="clearCalcHistory()" style="font-size:11px; margin-top:5px; background:var(--danger); color:white; border:none; padding:5px 10px; border-radius:8px; cursor:pointer;">مسح السجل</button>
+        </div>
+        </div>
+        </div>
+        
+        <!-- ========== أداة 12: محول البيانات الرقمية ========== -->
+        <div class="tool-card" data-name="محول بيانات رقمية بايت كيلوبايت ميجابايت جيجابايت تيرابايت بت" id="tool-محول البيانات">
+        <div class="tool-header">
+        <span class="tool-icon">💾</span>
+        <h3>محول البيانات الرقمية</h3>
+        </div>
+        <div class="tool-content">
+        <input type="number" id="dataValue" placeholder="القيمة" value="1">
+        <div class="converter-search">
+        <input type="text" id="fromDataSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','data')">
+        <div id="fromDataList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toDataSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','data')">
+        <div id="toDataList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertData()">تحويل البيانات</button>
+        <div class="result-area">
+        <span class="result-value" id="dataResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('dataResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        <!-- ========== أداة 13: مؤقت وساعة توقيت ========== -->
+        <div class="tool-card" data-name="مؤقت ساعة توقيت عد تنازلي timer stopwatch" id="tool-مؤقت">
+        <div class="tool-header">
+        <span class="tool-icon">⏱️</span>
+        <h3>مؤقت وساعة توقيت</h3>
+        </div>
+        <div class="tool-content">
+        <div style="display:flex; gap:10px; margin-bottom:10px;">
+        <button onclick="switchTimerMode('stopwatch')" id="stopwatchTab" class="btn-primary" style="flex:1; opacity:0.7;">⏱️ ساعة توقيت</button>
+        <button onclick="switchTimerMode('countdown')" id="countdownTab" class="btn-primary" style="flex:1; opacity:0.7;">⏲️ مؤقت تنازلي</button>
+        </div>
+        <div id="stopwatchPanel">
+        <div style="font-size:48px; text-align:center; font-weight:700; font-family:monospace; direction:ltr;" id="stopwatchDisplay">00:00:00</div>
+        <div style="display:flex; gap:10px;">
+        <button onclick="startStopwatch()" class="btn-primary" style="flex:1; background:var(--success);">▶️ بدء</button>
+        <button onclick="pauseStopwatch()" class="btn-primary" style="flex:1; background:var(--warning);">⏸️ إيقاف</button>
+        <button onclick="resetStopwatch()" class="btn-primary" style="flex:1; background:var(--danger);">🔄 تصفير</button>
+        </div>
+        </div>
+        <div id="countdownPanel" style="display:none;">
+        <div style="display:flex; gap:8px; justify-content:center; margin-bottom:10px;">
+        <input type="number" id="cdHours" value="0" min="0" max="99" style="width:60px; text-align:center;" placeholder="سا">
+        <span style="font-size:24px;">:</span>
+        <input type="number" id="cdMinutes" value="5" min="0" max="59" style="width:60px; text-align:center;" placeholder="د">
+        <span style="font-size:24px;">:</span>
+        <input type="number" id="cdSeconds" value="0" min="0" max="59" style="width:60px; text-align:center;" placeholder="ث">
+        </div>
+        <div style="font-size:48px; text-align:center; font-weight:700; font-family:monospace; direction:ltr;" id="countdownDisplay">00:05:00</div>
+        <div style="display:flex; gap:10px;">
+        <button onclick="startCountdown()" class="btn-primary" style="flex:1; background:var(--success);">▶️ بدء</button>
+        <button onclick="pauseCountdown()" class="btn-primary" style="flex:1; background:var(--warning);">⏸️ إيقاف</button>
+        <button onclick="resetCountdown()" class="btn-primary" style="flex:1; background:var(--danger);">🔄 تصفير</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        
+        <!-- ========== أداة 14: محول الإحداثيات الجغرافية ========== -->
+        <div class="tool-card" data-name="محول إحداثيات جغرافيةGPS خط طول عرض">
+        <div class="tool-header">
+        <span class="tool-icon">🗺️</span>
+        <h3>محول الإحداثيات الجغرافية</h3>
+        </div>
+        <div class="tool-content">
+        <label>📌 خط العرض (Latitude):</label>
+        <input type="text" id="latInput" placeholder="مثال: 33.5138" value="33.5138">
+        <label>📌 خط الطول (Longitude):</label>
+        <input type="text" id="lngInput" placeholder="مثال: 36.2765" value="36.2765">
+        <button class="btn-primary" onclick="convertCoordinates()">تحويل إلى صيغ مختلفة</button>
+        <div class="result-area" style="flex-direction:column; align-items:stretch;">
+        <span class="result-value">📊 الدرجات العشرية: <span id="coordDecimal"></span></span>
+        <span class="result-value">📊 الدرجات والدقائق: <span id="coordDM"></span></span>
+        <span class="result-value">📊 الدرجات والدقائق والثواني: <span id="coordDMS"></span></span>
+        <button class="copy-btn" onclick="copyText('coordDMS')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        </div><!-- نهاية toolsGrid -->
+        </section><!-- نهاية القسم الرئيسي -->
+        
+        <!-- القسم الثاني: المحولات المتقدمة -->
+        <section id="converters">
+        <h2 class="section-title">🔄 المحولات المتقدمة (واجهة بحث ذكية)</h2>
+        <div class="tools-grid">
+        
         <!-- ========== محول الأطوال ========== -->
-        <div class="tool-card" data-name="تحويل طول متر قدم سم بوصة يارد ميل كيلومتر">
-            <div class="tool-header">
-                <span class="tool-icon">📏</span>
-                <h3>محول الأطوال</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="lengthValue" placeholder="القيمة" value="1">
-                <div class="converter-search">
-                    <input type="text" id="fromLengthSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','length')">
-                    <div id="fromLengthList" class="converter-list"></div>
-                </div>
-                <span style="text-align:center; font-size:20px;">⬇️</span>
-                <div class="converter-search">
-                    <input type="text" id="toLengthSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','length')">
-                    <div id="toLengthList" class="converter-list"></div>
-                </div>
-                <button class="btn-primary" onclick="convertLength()">تحويل الطول</button>
-                <div class="result-area">
-                    <span class="result-value" id="lengthResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('lengthResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-card" data-name="تحويل طول متر قدم سم بوصة يارد ميل كيلومتر" id="tool-محول الأطوال">
+        <div class="tool-header">
+        <span class="tool-icon">📏</span>
+        <h3>محول الأطوال</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="lengthValue" placeholder="القيمة" value="1">
+        <div class="converter-search">
+        <input type="text" id="fromLengthSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','length')">
+        <div id="fromLengthList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toLengthSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','length')">
+        <div id="toLengthList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertLength()">تحويل الطول</button>
+        <div class="result-area">
+        <span class="result-value" id="lengthResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('lengthResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== محول الأوزان ========== -->
         <div class="tool-card" data-name="تحويل وزن كيلو جرام رطل أونصة طن">
-            <div class="tool-header">
-                <span class="tool-icon">⚖️</span>
-                <h3>محول الأوزان</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="weightValue" placeholder="القيمة" value="1">
-                <div class="converter-search">
-                    <input type="text" id="fromWeightSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','weight')">
-                    <div id="fromWeightList" class="converter-list"></div>
-                </div>
-                <span style="text-align:center; font-size:20px;">⬇️</span>
-                <div class="converter-search">
-                    <input type="text" id="toWeightSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','weight')">
-                    <div id="toWeightList" class="converter-list"></div>
-                </div>
-                <button class="btn-primary" onclick="convertWeight()">تحويل الوزن</button>
-                <div class="result-area">
-                    <span class="result-value" id="weightResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('weightResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">⚖️</span>
+        <h3>محول الأوزان</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="weightValue" placeholder="القيمة" value="1">
+        <div class="converter-search">
+        <input type="text" id="fromWeightSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','weight')">
+        <div id="fromWeightList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toWeightSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','weight')">
+        <div id="toWeightList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertWeight()">تحويل الوزن</button>
+        <div class="result-area">
+        <span class="result-value" id="weightResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('weightResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
         <!-- ========== محول درجة الحرارة ========== -->
         <div class="tool-card" data-name="تحويل حرارة مئوية فهرنهايت كلفن">
-            <div class="tool-header">
-                <span class="tool-icon">🌡️</span>
-                <h3>محول درجة الحرارة</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="tempValue" placeholder="القيمة" value="25">
-                <div class="converter-search">
-                    <input type="text" id="fromTempSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','temp')">
-                    <div id="fromTempList" class="converter-list"></div>
-                </div>
-                <span style="text-align:center; font-size:20px;">⬇️</span>
-                <div class="converter-search">
-                    <input type="text" id="toTempSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','temp')">
-                    <div id="toTempList" class="converter-list"></div>
-                </div>
-                <button class="btn-primary" onclick="convertTemperature()">تحويل الحرارة</button>
-                <div class="result-area">
-                    <span class="result-value" id="tempResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('tempResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🌡️</span>
+        <h3>محول درجة الحرارة</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="tempValue" placeholder="القيمة" value="25">
+        <div class="converter-search">
+        <input type="text" id="fromTempSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','temp')">
+        <div id="fromTempList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toTempSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','temp')">
+        <div id="toTempList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertTemperature()">تحويل الحرارة</button>
+        <div class="result-area">
+        <span class="result-value" id="tempResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('tempResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== محول الوقت ========== -->
         <div class="tool-card" data-name="تحويل وقت ساعة دقيقة ثانية يوم أسبوع شهر">
-            <div class="tool-header">
-                <span class="tool-icon">⏰</span>
-                <h3>محول الوقت</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="timeValue" placeholder="القيمة" value="1">
-                <div class="converter-search">
-                    <input type="text" id="fromTimeSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','time')">
-                    <div id="fromTimeList" class="converter-list"></div>
-                </div>
-                <span style="text-align:center; font-size:20px;">⬇️</span>
-                <div class="converter-search">
-                    <input type="text" id="toTimeSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','time')">
-                    <div id="toTimeList" class="converter-list"></div>
-                </div>
-                <button class="btn-primary" onclick="convertTime()">تحويل الوقت</button>
-                <div class="result-area">
-                    <span class="result-value" id="timeResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('timeResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">⏰</span>
+        <h3>محول الوقت</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="timeValue" placeholder="القيمة" value="1">
+        <div class="converter-search">
+        <input type="text" id="fromTimeSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','time')">
+        <div id="fromTimeList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toTimeSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','time')">
+        <div id="toTimeList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertTime()">تحويل الوقت</button>
+        <div class="result-area">
+        <span class="result-value" id="timeResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('timeResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== محول السرعة ========== -->
         <div class="tool-card" data-name="تحويل سرعة كم ميل متر في الثانية عقدة">
-            <div class="tool-header">
-                <span class="tool-icon">🏃</span>
-                <h3>محول السرعة</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="speedValue" placeholder="القيمة" value="1">
-                <div class="converter-search">
-                    <input type="text" id="fromSpeedSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','speed')">
-                    <div id="fromSpeedList" class="converter-list"></div>
-                </div>
-                <span style="text-align:center; font-size:20px;">⬇️</span>
-                <div class="converter-search">
-                    <input type="text" id="toSpeedSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','speed')">
-                    <div id="toSpeedList" class="converter-list"></div>
-                </div>
-                <button class="btn-primary" onclick="convertSpeed()">تحويل السرعة</button>
-                <div class="result-area">
-                    <span class="result-value" id="speedResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('speedResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🏃</span>
+        <h3>محول السرعة</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="speedValue" placeholder="القيمة" value="1">
+        <div class="converter-search">
+        <input type="text" id="fromSpeedSearch" placeholder="🔍 ابحث عن وحدة المصدر" oninput="filterList('from','speed')">
+        <div id="fromSpeedList" class="converter-list"></div>
+        </div>
+        <span style="text-align:center; font-size:20px;">⬇️</span>
+        <div class="converter-search">
+        <input type="text" id="toSpeedSearch" placeholder="🔍 ابحث عن الوحدة الهدف" oninput="filterList('to','speed')">
+        <div id="toSpeedList" class="converter-list"></div>
+        </div>
+        <button class="btn-primary" onclick="convertSpeed()">تحويل السرعة</button>
+        <div class="result-area">
+        <span class="result-value" id="speedResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('speedResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
         <!-- ========== محول المساحة ========== -->
         <div class="tool-card" data-name="تحويل مساحة متر مربع قدم كم هكتار فدان">
             <div class="tool-header">
@@ -1069,7 +1459,7 @@ footer {
                 </div>
             </div>
         </div>
-
+        
         <!-- ========== محول الحجم ========== -->
         <div class="tool-card" data-name="تحويل حجم لتر ملليلتر غالون متر مكعب">
             <div class="tool-header">
@@ -1094,7 +1484,7 @@ footer {
                 </div>
             </div>
         </div>
-
+        
         <!-- ========== محول الطاقة ========== -->
         <div class="tool-card" data-name="تحويل طاقة واط كيلوواط حصان">
             <div class="tool-header">
@@ -1119,7 +1509,7 @@ footer {
                 </div>
             </div>
         </div>
-
+        
         <!-- ========== محول الزوايا ========== -->
         <div class="tool-card" data-name="تحويل زاوية درجة راديان">
             <div class="tool-header">
@@ -1144,738 +1534,1199 @@ footer {
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- القسم الثالث: الأدوات الإضافية -->
-<section id="extras">
-    <h2 class="section-title">🎁 أدوات إضافية مفيدة</h2>
-    <div class="tools-grid">
-
+            </div>
+        </section>
+        <!-- القسم الثالث: الأدوات الإضافية -->
+        <section id="extras">
+        <h2 class="section-title">🎁 أدوات إضافية مفيدة</h2>
+        <div class="tools-grid">
+        
         <!-- ========== حساب المعدل التراكمي ========== -->
         <div class="tool-card" data-name="معدل تراكمي حساب درجات تقدير">
-            <div class="tool-header">
-                <span class="tool-icon">🎓</span>
-                <h3>حساب المعدل التراكمي</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="totalGrades" placeholder="مجموع الدرجات التي حصلت عليها" value="850">
-                <input type="number" id="totalPossible" placeholder="الدرجة الكلية (المجموع الكلي)" value="1000">
-                <button class="btn-primary" onclick="calculateGPA()">احسب المعدل</button>
-                <div class="result-area">
-                    <span class="result-value" id="gpaResult">المعدل: --%</span>
-                    <button class="copy-btn" onclick="copyText('gpaResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🎓</span>
+        <h3>حساب المعدل التراكمي</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="totalGrades" placeholder="مجموع الدرجات التي حصلت عليها" value="850">
+        <input type="number" id="totalPossible" placeholder="الدرجة الكلية (المجموع الكلي)" value="1000">
+        <button class="btn-primary" onclick="calculateGPA()">احسب المعدل</button>
+        <div class="result-area">
+        <span class="result-value" id="gpaResult">المعدل: --%</span>
+        <button class="copy-btn" onclick="copyText('gpaResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== حساب الخصم ========== -->
         <div class="tool-card" data-name="خصم حساب تخفيض عروض">
-            <div class="tool-header">
-                <span class="tool-icon">🏷️</span>
-                <h3>حاسبة الخصم</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="originalPrice" placeholder="السعر الأصلي" value="250">
-                <input type="number" id="discountPercent" placeholder="نسبة الخصم (%)" value="20">
-                <button class="btn-primary" onclick="calculateDiscount()">احسب السعر بعد الخصم</button>
-                <div class="result-area">
-                    <span class="result-value" id="discountResult">السعر بعد الخصم: --</span>
-                    <button class="copy-btn" onclick="copyText('discountResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🏷️</span>
+        <h3>حاسبة الخصم</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="originalPrice" placeholder="السعر الأصلي" value="250">
+        <input type="number" id="discountPercent" placeholder="نسبة الخصم (%)" value="20">
+        <button class="btn-primary" onclick="calculateDiscount()">احسب السعر بعد الخصم</button>
+        <div class="result-area">
+        <span class="result-value" id="discountResult">السعر بعد الخصم: --</span>
+        <button class="copy-btn" onclick="copyText('discountResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== قوة كلمة المرور ========== -->
         <div class="tool-card" data-name="قوة كلمة مرور strength security">
-            <div class="tool-header">
-                <span class="tool-icon">🛡️</span>
-                <h3>فحص قوة كلمة المرور</h3>
-            </div>
-            <div class="tool-content">
-                <input type="text" id="passwordStrength" placeholder="أدخل كلمة المرور لفحص قوتها" value="Password123!">
-                <button class="btn-primary" onclick="checkPasswordStrength()">تحقق من قوة كلمة المرور</button>
-                <div class="result-area">
-                    <span class="result-value" id="strengthResult">القوة: --</span>
-                    <button class="copy-btn" onclick="copyText('strengthResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🛡️</span>
+        <h3>فحص قوة كلمة المرور</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="text" id="passwordStrength" placeholder="أدخل كلمة المرور لفحص قوتها" value="Password123!">
+        <button class="btn-primary" onclick="checkPasswordStrength()">تحقق من قوة كلمة المرور</button>
+        <div class="result-area">
+        <span class="result-value" id="strengthResult">القوة: --</span>
+        <button class="copy-btn" onclick="copyText('strengthResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== تحويل الأساس العددي ========== -->
         <div class="tool-card" data-name="تحويل رقم عشري ثنائي سداسي ثماني">
-            <div class="tool-header">
-                <span class="tool-icon">🔢</span>
-                <h3>تحويل الأساس العددي</h3>
-            </div>
-            <div class="tool-content">
-                <input type="text" id="numberInput" placeholder="أدخل الرقم" value="255">
-                <select id="baseSelect">
-                    <option value="10">عشري (Decimal) - أساس 10</option>
-                    <option value="2">ثنائي (Binary) - أساس 2</option>
-                    <option value="16">سداسي عشر (Hexadecimal) - أساس 16</option>
-                    <option value="8">ثماني (Octal) - أساس 8</option>
-                </select>
-                <button class="btn-primary" onclick="convertBase()">تحويل إلى جميع الأنظمة</button>
-                <div class="result-area">
-                    <span class="result-value" id="baseResult">النتيجة: --</span>
-                    <button class="copy-btn" onclick="copyText('baseResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">🔢</span>
+        <h3>تحويل الأساس العددي</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="text" id="numberInput" placeholder="أدخل الرقم" value="255">
+        <select id="baseSelect">
+        <option value="10">عشري (Decimal) - أساس 10</option>
+        <option value="2">ثنائي (Binary) - أساس 2</option>
+        <option value="16">سداسي عشر (Hexadecimal) - أساس 16</option>
+        <option value="8">ثماني (Octal) - أساس 8</option>
+        </select>
+        <button class="btn-primary" onclick="convertBase()">تحويل إلى جميع الأنظمة</button>
+        <div class="result-area">
+        <span class="result-value" id="baseResult">النتيجة: --</span>
+        <button class="copy-btn" onclick="copyText('baseResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== الفرق بين رقمين ونسبة التغير ========== -->
         <div class="tool-card" data-name="فرق رقمين نسبة تغير زيادة نقصان">
-            <div class="tool-header">
-                <span class="tool-icon">📉</span>
-                <h3>الفرق بين رقمين ونسبة التغير</h3>
-            </div>
-            <div class="tool-content">
-                <input type="number" id="num1" placeholder="الرقم الأول (الأساسي)" value="100">
-                <input type="number" id="num2" placeholder="الرقم الثاني (المقارن)" value="80">
-                <button class="btn-primary" onclick="calculateDifference()">احسب الفرق ونسبة التغير</button>
-                <div class="result-area">
-                    <span class="result-value" id="diffResult">الفرق: -- | نسبة التغير: --%</span>
-                    <button class="copy-btn" onclick="copyText('diffResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📉</span>
+        <h3>الفرق بين رقمين ونسبة التغير</h3>
         </div>
-
+        <div class="tool-content">
+        <input type="number" id="num1" placeholder="الرقم الأول (الأساسي)" value="100">
+        <input type="number" id="num2" placeholder="الرقم الثاني (المقارن)" value="80">
+        <button class="btn-primary" onclick="calculateDifference()">احسب الفرق ونسبة التغير</button>
+        <div class="result-area">
+        <span class="result-value" id="diffResult">الفرق: -- | نسبة التغير: --%</span>
+        <button class="copy-btn" onclick="copyText('diffResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        
         <!-- ========== حساب المتوسط الحسابي ========== -->
         <div class="tool-card" data-name="متوسط حسابي mean average">
-            <div class="tool-header">
-                <span class="tool-icon">📊</span>
-                <h3>حساب المتوسط الحسابي</h3>
-            </div>
-            <div class="tool-content">
-                <textarea id="numbersInput" placeholder="أدخل الأرقام مفصولة بفواصل (مثال: 10,20,30,40,50)" rows="3"></textarea>
-                <button class="btn-primary" onclick="calculateMean()">احسب المتوسط</button>
-                <div class="result-area">
-                    <span class="result-value" id="meanResult">المتوسط: --</span>
-                    <button class="copy-btn" onclick="copyText('meanResult')">📋 نسخ</button>
-                </div>
-            </div>
+        <div class="tool-header">
+        <span class="tool-icon">📊</span>
+        <h3>حساب المتوسط الحسابي</h3>
         </div>
-    </div>
-</section>
-
-<!-- ========== قسم عن الموقع ========== -->
-<section id="about">
-    <h2 class="section-title">ℹ️ عن الموقع</h2>
-    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="tool-content">
+        <textarea id="numbersInput" placeholder="أدخل الأرقام مفصولة بفواصل (مثال: 10,20,30,40,50)" rows="3"></textarea>
+        <button class="btn-primary" onclick="calculateMean()">احسب المتوسط</button>
+        <div class="result-area">
+        <span class="result-value" id="meanResult">المتوسط: --</span>
+        <button class="copy-btn" onclick="copyText('meanResult')">📋 نسخ</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        <!-- ========== قسم عن الموقع ========== -->
+        <section id="about">
+        <h2 class="section-title">ℹ️ عن الموقع</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
         <div class="tool-card">
-            <p style="margin-bottom: 15px; line-height: 1.8;">
-                <strong>موقع الأدوات الذكية</strong> هو منصة متكاملة تقدم <strong>أكثر من 35 أداة مجانية</strong> للاستخدام اليومي، تم تطويرها بعناية لتلبية احتياجات المستخدمين.
-            </p>
-            <p style="margin-bottom: 15px; line-height: 1.8;">
-                ✔️ جميع المحولات مزودة بواجهة <strong>بحث ذكية</strong> لتسهيل اختيار الوحدات بسرعة.<br>
-                ✔️ <strong>ثلاثة ثيمات متكاملة</strong> (ليلي، نهاري، معتدل) تناسب جميع الأوقات والتفضيلات.<br>
-                ✔️ تصميم <strong>متجاوب بالكامل</strong> مع جميع أحجام الشاشات (جوال، تابلت، حاسوب).<br>
-                ✔️ جميع الأدوات تعمل <strong>دون الحاجة إلى اتصال بالإنترنت</strong> بعد تحميل الصفحة.
-            </p>
-            <p style="margin-bottom: 15px; line-height: 1.8;">
-                يمكنك استخدام الأدوات الموجودة في:
-                <strong>حاسبة العمر</strong> | <strong>محول العملات</strong> | <strong>مولد كلمات المرور</strong> | 
-                <strong>محولات الأطوال والأوزان والحرارة والوقت والسرعة والمساحة والحجم والطاقة</strong> |
-                <strong>عداد الكلمات</strong> | <strong>حاسبة النسبة المئوية والخصم والمعدل</strong> |
-                <strong>تشفير وفك تشفير الروابط</strong> | <strong>الجذر التربيعي وتحويل الأساس العددي وغيرها الكثير</strong>
-            </p>
-            <p style="line-height: 1.8;">
-                التطوير والإشراف: <strong style="color: var(--primary);">General Fix Team</strong><br>
-                للإقتراحات أو الإبلاغ عن مشكلة، يرجى التواصل عبر صفحة اتصل بنا.
-            </p>
+        <p style="margin-bottom: 15px; line-height: 1.8;">
+        <strong>موقع الأدوات الذكية</strong> هو منصة متكاملة تقدم <strong>أكثر من 35 أداة مجانية</strong> للاستخدام اليومي، تم تطويرها بعناية لتلبية احتياجات المستخدمين.
+        </p>
+        <p style="margin-bottom: 15px; line-height: 1.8;">
+        ✔️ جميع المحولات مزودة بواجهة <strong>بحث ذكية</strong> لتسهيل اختيار الوحدات بسرعة.<br>
+        ✔️ <strong>ثلاثة ثيمات متكاملة</strong> (ليلي، نهاري، معتدل) تناسب جميع الأوقات والتفضيلات.<br>
+        ✔️ تصميم <strong>متجاوب بالكامل</strong> مع جميع أحجام الشاشات (جوال، تابلت، حاسوب).<br>
+        ✔️ جميع الأدوات تعمل <strong>دون الحاجة إلى اتصال بالإنترنت</strong> بعد تحميل الصفحة (PWA).<br>
+        ✔️ <strong>آلة حاسبة متقدمة</strong> مع سجل للعمليات.<br>
+        ✔️ <strong>مؤقت وساعة توقيت</strong> للاستخدام اليومي.<br>
+        ✔️ <strong>محول البيانات الرقمية</strong> والإحداثيات الجغرافية.
+        </p>
+        <p style="margin-bottom: 15px; line-height: 1.8;">
+        يمكنك استخدام الأدوات الموجودة في:
+        <strong>حاسبة العمر</strong> | <strong>محول العملات</strong> | <strong>مولد كلمات المرور</strong> | 
+        <strong>آلة حاسبة متقدمة</strong> | <strong>مؤقت وساعة توقيت</strong> |
+        <strong>محولات الأطوال والأوزان والحرارة والوقت والسرعة والمساحة والحجم والطاقة</strong> |
+        <strong>عداد الكلمات</strong> | <strong>حاسبة النسبة المئوية والخصم والمعدل</strong> |
+        <strong>تشفير وفك تشفير الروابط</strong> | <strong>الجذر التربيعي وتحويل الأساس العددي</strong> |
+        <strong>محول البيانات الرقمية</strong> | <strong>محول الإحداثيات الجغرافية</strong>
+        </p>
+        <p style="line-height: 1.8;">
+        التطوير والإشراف: <strong style="color: var(--primary);">General Fix Team</strong><br>
+        للإقتراحات أو الإبلاغ عن مشكلة، يرجى التواصل عبر صفحة اتصل بنا.
+        </p>
         </div>
-    </div>
-</section>
-
-<!-- ========== قسم تواصل معنا ========== -->
-<section id="contact">
-    <h2 class="section-title">📞 تواصل معنا</h2>
-    <div style="max-width: 600px; margin: 0 auto;">
+        </div>
+        </section>
+        
+        <!-- ========== قسم تواصل معنا ========== -->
+        <section id="contact">
+        <h2 class="section-title">📞 تواصل معنا</h2>
+        <div style="max-width: 600px; margin: 0 auto;">
         <div class="tool-card" style="text-align: center;">
-            <p style="margin-bottom: 15px;">📧 <strong>البريد الإلكتروني:</strong> support@generalfix.com</p>
-            <p style="margin-bottom: 15px;">📱 <strong>واتساب:</strong> 0937318709</p>
-            <p style="margin-bottom: 15px;">🌐 <strong>الموقع الرئيسي:</strong> <a href="https://ahmdhlaq031-design.github.io" target="_blank" style="color: var(--primary);">General Fix</a></p>
-            <p>💡 يمكنك التواصل معنا لأي استفسار أو اقتراح أو للإبلاغ عن أي مشكلة في الأدوات.</p>
+        <p style="margin-bottom: 15px;">📧 <strong>البريد الإلكتروني:</strong> support@generalfix.com</p>
+        <p style="margin-bottom: 15px;">📱 <strong>واتساب:</strong> 0937318709</p>
+        <p style="margin-bottom: 15px;">🌐 <strong>الموقع الرئيسي:</strong> <a href="https://ahmdhlaq031-design.github.io" target="_blank" style="color: var(--primary);">General Fix</a></p>
+        <p>💡 يمكنك التواصل معنا لأي استفسار أو اقتراح أو للإبلاغ عن أي مشكلة في الأدوات.</p>
         </div>
-    </div>
-</section>
-
-<!-- ========== الفوتر وعداد الزوار ========== -->
-<footer>
-    <p>© 2026 الأدوات الذكية | 3 ثيمات متكاملة | أكثر من 35 أداة مجانية</p>
-    <div class="view-counter">
+        </div>
+        </section>
+        
+        <!-- ========== بانر تثبيت التطبيق ========== -->
+        <div class="install-banner" id="installBanner">
+        <p style="margin-bottom:10px; color:var(--text-primary);">📱 ثبّت التطبيق على جهازك للوصول السريع ودون اتصال</p>
+        <button onclick="installApp()" class="btn-primary" style="padding:10px 20px;">تثبيت التطبيق</button>
+        <button onclick="document.getElementById('installBanner').style.display='none'" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; margin-right:10px;">لاحقاً</button>
+        </div>
+        
+        <!-- ========== زر العودة للأعلى ========== -->
+        <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</button>
+        
+        <!-- ========== قسم مواقعنا الأخرى ========== -->
+        <div class="other-sites" style="max-width: 900px; margin: 50px auto 0; padding: 30px; background: var(--bg-card); border-radius: 28px; border: 1px solid var(--border-color); text-align: center;">
+        <h3 style="margin-bottom: 10px; color: var(--primary); font-size: 24px;">🌐 مواقعنا الأخرى</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 25px;">اكتشف باقي مشاريعنا المفيدة والممتعة</p>
+        <div class="sites-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; justify-content: center;">
+        
+        <a href="https://ahmdhlaq031-design.github.io/Smart-Free-tools-/" target="_blank" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; transition: 0.3s; background: var(--gradient-1); color: white; opacity: 0.8;">
+        <span style="font-size: 36px;">🛠️</span>
+        <span>الأدوات الذكية</span>
+        <span style="font-size: 11px; opacity: 0.8;">أنت هنا الآن</span>
+        </a>
+        
+        <a href="https://ahmdhlaq031-design.github.io/Gamerenger5/" target="_blank" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; transition: 0.3s; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white;">
+        <span style="font-size: 36px;">🏆</span>
+        <span>مركز الألعاب</span>
+        <span style="font-size: 11px; opacity: 0.8;">15 لعبة رائعة</span>
+        </a>
+        
+        <a href="https://ahmdhlaq031-design.github.io/Seel/" target="_blank" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; transition: 0.3s; background: linear-gradient(135deg, #10b981, #0ea5e9); color: white;">
+        <span style="font-size: 36px;">🛒</span>
+        <span>General Fix Store</span>
+        <span style="font-size: 11px; opacity: 0.8;">متجر المنتجات</span>
+        </a>
+        
+        <a href="https://ahmdhlaq031-design.github.io/Ev_Genaral_zero/" target="_blank" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; transition: 0.3s; background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white;">
+        <span style="font-size: 36px;">⚡</span>
+        <span>Ev General Zero</span>
+        <span style="font-size: 11px; opacity: 0.8;">مشروع جديد</span>
+        </a>
+        
+        </div>
+        <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);">جميع الحقوق محفوظة © General Fix Team</p>
+        </div>
+        
+        <!-- ========== الفوتر وعداد الزوار ========== -->
+        <footer>
+        <p>© 2026 الأدوات الذكية | 3 ثيمات متكاملة | أكثر من 35 أداة مجانية | يدعم التثبيت كتطبيق (PWA)</p>
+        <div class="view-counter">
         👁️ عدد الزوار الحقيقي: <span id="viewCount">0</span>
-    </div>
-    <p style="font-size: 11px; margin-top: 10px;">تم التطوير بواسطة General Fix Team</p>
-</footer>
-<script>
-// ==================== الإشعارات والنسخ ====================
-function showNotification(msg) {
-    let n = document.createElement("div");
-    n.className = "notification";
-    n.textContent = "✅ " + msg;
-    document.body.appendChild(n);
-    setTimeout(() => n.remove(), 2500);
-}
-
-function copyText(id) {
-    let t = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(t).then(() => showNotification("تم نسخ النتيجة بنجاح"));
-}
-
-// ==================== قوائم الوحدات لجميع المحولات ====================
-const lengthUnits = [
-    {code:"m", name:"متر (m)"},
-    {code:"cm", name:"سنتيمتر (cm)"},
-    {code:"mm", name:"مليمتر (mm)"},
-    {code:"km", name:"كيلومتر (km)"},
-    {code:"ft", name:"قدم (ft)"},
-    {code:"in", name:"بوصة (in)"},
-    {code:"yd", name:"يارد (yd)"},
-    {code:"mi", name:"ميل (mi)"}
-];
-
-const weightUnits = [
-    {code:"kg", name:"كيلوجرام (kg)"},
-    {code:"g", name:"جرام (g)"},
-    {code:"mg", name:"مليجرام (mg)"},
-    {code:"lb", name:"رطل (lb)"},
-    {code:"oz", name:"أونصة (oz)"},
-    {code:"ton", name:"طن (ton)"}
-];
-
-const tempUnits = [
-    {code:"c", name:"مئوية (°C)"},
-    {code:"f", name:"فهرنهايت (°F)"},
-    {code:"k", name:"كلفن (K)"}
-];
-
-const timeUnits = [
-    {code:"s", name:"ثانية (s)"},
-    {code:"m", name:"دقيقة (min)"},
-    {code:"h", name:"ساعة (h)"},
-    {code:"d", name:"يوم (d)"},
-    {code:"w", name:"أسبوع (w)"},
-    {code:"month", name:"شهر (month)"}
-];
-
-const speedUnits = [
-    {code:"kmh", name:"كم/ساعة (km/h)"},
-    {code:"mph", name:"ميل/ساعة (mph)"},
-    {code:"ms", name:"متر/ثانية (m/s)"},
-    {code:"knot", name:"عقدة (knot)"}
-];
-
-const areaUnits = [
-    {code:"m2", name:"متر مربع (m²)"},
-    {code:"cm2", name:"سنتيمتر مربع (cm²)"},
-    {code:"km2", name:"كيلومتر مربع (km²)"},
-    {code:"ft2", name:"قدم مربع (ft²)"},
-    {code:"acre", name:"فدان (acre)"},
-    {code:"ha", name:"هكتار (ha)"}
-];
-
-const volumeUnits = [
-    {code:"l", name:"لتر (L)"},
-    {code:"ml", name:"ملليلتر (mL)"},
-    {code:"gal", name:"غالون (gal)"},
-    {code:"m3", name:"متر مكعب (m³)"}
-];
-
-const powerUnits = [
-    {code:"w", name:"واط (W)"},
-    {code:"kw", name:"كيلوواط (kW)"},
-    {code:"hp", name:"حصان (hp)"}
-];
-
-const angleUnits = [
-    {code:"deg", name:"درجة (°)"},
-    {code:"rad", name:"راديان (rad)"}
-];
-
-const currencies = [
-    {code:"USD", name:"دولار أمريكي", flag:"🇺🇸"},
-    {code:"EUR", name:"يورو", flag:"🇪🇺"},
-    {code:"GBP", name:"جنيه إسترليني", flag:"🇬🇧"},
-    {code:"JPY", name:"ين ياباني", flag:"🇯🇵"},
-    {code:"CAD", name:"دولار كندي", flag:"🇨🇦"},
-    {code:"SAR", name:"ريال سعودي", flag:"🇸🇦"},
-    {code:"AED", name:"درهم إماراتي", flag:"🇦🇪"},
-    {code:"EGP", name:"جنيه مصري", flag:"🇪🇬"},
-    {code:"TRY", name:"ليرة تركية", flag:"🇹🇷"},
-    {code:"SYP", name:"ليرة سورية", flag:"🇸🇾"},
-    {code:"IQD", name:"دينار عراقي", flag:"🇮🇶"},
-    {code:"KWD", name:"دينار كويتي", flag:"🇰🇼"},
-    {code:"QAR", name:"ريال قطري", flag:"🇶🇦"},
-    {code:"BHD", name:"دينار بحريني", flag:"🇧🇭"},
-    {code:"JOD", name:"دينار أردني", flag:"🇯🇴"}
-];
-
-// ==================== المتغيرات المختارة للمحولات ====================
-let selectedFromCurrency = "USD", selectedToCurrency = "SYP";
-let selectedFromLength = "m", selectedToLength = "cm";
-let selectedFromWeight = "kg", selectedToWeight = "g";
-let selectedFromTemp = "c", selectedToTemp = "f";
-let selectedFromTime = "h", selectedToTime = "m";
-let selectedFromSpeed = "kmh", selectedToSpeed = "mph";
-let selectedFromArea = "m2", selectedToArea = "ft2";
-let selectedFromVolume = "l", selectedToVolume = "ml";
-let selectedFromPower = "w", selectedToPower = "kw";
-let selectedFromAngle = "deg", selectedToAngle = "rad";
-
-// ==================== دالة إنشاء القوائم ====================
-function createList(items, containerId, selectFunc) {
-    let container = document.getElementById(containerId);
-    if(container) {
+        </div>
+        <p style="font-size: 11px; margin-top: 10px;">تم التطوير بواسطة General Fix Team</p>
+        </footer>
+        
+        <script>
+        // ==================== متغيرات عامة ====================
+        let deferredPrompt;
+        let calcCurrentInput = '0';
+        let calcHistory = [];
+        let calcShouldReset = false;
+        
+        // ==================== متغيرات المؤقت ====================
+        let stopwatchInterval;
+        let stopwatchRunning = false;
+        let stopwatchTime = 0;
+        let countdownInterval;
+        let countdownRunning = false;
+        let countdownRemaining = 300; // 5 دقائق افتراضياً
+        let timerMode = 'stopwatch';
+        // ==================== الإشعارات والنسخ ====================
+        function showNotification(msg) {
+        let n = document.createElement("div");
+        n.className = "notification";
+        n.textContent = "✅ " + msg;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 2500);
+        }
+        
+        function copyText(id) {
+        let el = document.getElementById(id);
+        if (!el) return;
+        let t = el.innerText || el.textContent;
+        navigator.clipboard.writeText(t).then(() => showNotification("تم نسخ النتيجة بنجاح"));
+        }
+        
+        // ==================== قوائم الوحدات لجميع المحولات ====================
+        const lengthUnits = [
+        {code:"m", name:"متر (m)"}, {code:"cm", name:"سنتيمتر (cm)"}, {code:"mm", name:"مليمتر (mm)"},
+        {code:"km", name:"كيلومتر (km)"}, {code:"ft", name:"قدم (ft)"}, {code:"in", name:"بوصة (in)"},
+        {code:"yd", name:"يارد (yd)"}, {code:"mi", name:"ميل (mi)"}
+        ];
+        
+        const weightUnits = [
+        {code:"kg", name:"كيلوجرام (kg)"}, {code:"g", name:"جرام (g)"}, {code:"mg", name:"مليجرام (mg)"},
+        {code:"lb", name:"رطل (lb)"}, {code:"oz", name:"أونصة (oz)"}, {code:"ton", name:"طن (ton)"}
+        ];
+        
+        const tempUnits = [
+        {code:"c", name:"مئوية (°C)"}, {code:"f", name:"فهرنهايت (°F)"}, {code:"k", name:"كلفن (K)"}
+        ];
+        
+        const timeUnits = [
+        {code:"s", name:"ثانية (s)"}, {code:"m", name:"دقيقة (min)"}, {code:"h", name:"ساعة (h)"},
+        {code:"d", name:"يوم (d)"}, {code:"w", name:"أسبوع (w)"}, {code:"month", name:"شهر (month)"}
+        ];
+        
+        const speedUnits = [
+        {code:"kmh", name:"كم/ساعة (km/h)"}, {code:"mph", name:"ميل/ساعة (mph)"},
+        {code:"ms", name:"متر/ثانية (m/s)"}, {code:"knot", name:"عقدة (knot)"}
+        ];
+        
+        const areaUnits = [
+        {code:"m2", name:"متر مربع (m²)"}, {code:"cm2", name:"سنتيمتر مربع (cm²)"},
+        {code:"km2", name:"كيلومتر مربع (km²)"}, {code:"ft2", name:"قدم مربع (ft²)"},
+        {code:"acre", name:"فدان (acre)"}, {code:"ha", name:"هكتار (ha)"}
+        ];
+        
+        const volumeUnits = [
+        {code:"l", name:"لتر (L)"}, {code:"ml", name:"ملليلتر (mL)"},
+        {code:"gal", name:"غالون (gal)"}, {code:"m3", name:"متر مكعب (m³)"}
+        ];
+        
+        const powerUnits = [
+        {code:"w", name:"واط (W)"}, {code:"kw", name:"كيلوواط (kW)"}, {code:"hp", name:"حصان (hp)"}
+        ];
+        
+        const angleUnits = [
+        {code:"deg", name:"درجة (°)"}, {code:"rad", name:"راديان (rad)"}
+        ];
+        
+        const dataUnits = [
+        {code:"bit", name:"بت (bit)"}, {code:"B", name:"بايت (B)"}, {code:"KB", name:"كيلوبايت (KB)"},
+        {code:"MB", name:"ميجابايت (MB)"}, {code:"GB", name:"جيجابايت (GB)"},
+        {code:"TB", name:"تيرابايت (TB)"}, {code:"PB", name:"بيتابايت (PB)"}
+        ];
+        
+        const currencies = [
+        {code:"USD", name:"دولار أمريكي", flag:"🇺🇸"}, {code:"EUR", name:"يورو", flag:"🇪🇺"},
+        {code:"GBP", name:"جنيه إسترليني", flag:"🇬🇧"}, {code:"JPY", name:"ين ياباني", flag:"🇯🇵"},
+        {code:"CAD", name:"دولار كندي", flag:"🇨🇦"}, {code:"SAR", name:"ريال سعودي", flag:"🇸🇦"},
+        {code:"AED", name:"درهم إماراتي", flag:"🇦🇪"}, {code:"EGP", name:"جنيه مصري", flag:"🇪🇬"},
+        {code:"TRY", name:"ليرة تركية", flag:"🇹🇷"}, {code:"SYP", name:"ليرة سورية", flag:"🇸🇾"},
+        {code:"IQD", name:"دينار عراقي", flag:"🇮🇶"}, {code:"KWD", name:"دينار كويتي", flag:"🇰🇼"},
+        {code:"QAR", name:"ريال قطري", flag:"🇶🇦"}, {code:"BHD", name:"دينار بحريني", flag:"🇧🇭"},
+        {code:"JOD", name:"دينار أردني", flag:"🇯🇴"}
+        ];
+        
+        // ==================== المتغيرات المختارة للمحولات ====================
+        let selectedFromCurrency = "USD", selectedToCurrency = "SYP";
+        let selectedFromLength = "m", selectedToLength = "cm";
+        let selectedFromWeight = "kg", selectedToWeight = "g";
+        let selectedFromTemp = "c", selectedToTemp = "f";
+        let selectedFromTime = "h", selectedToTime = "m";
+        let selectedFromSpeed = "kmh", selectedToSpeed = "mph";
+        let selectedFromArea = "m2", selectedToArea = "ft2";
+        let selectedFromVolume = "l", selectedToVolume = "ml";
+        let selectedFromPower = "w", selectedToPower = "kw";
+        let selectedFromAngle = "deg", selectedToAngle = "rad";
+        let selectedFromData = "GB", selectedToData = "MB";
+        
+        // ==================== دالة إنشاء القوائم ====================
+        function createList(items, containerId, selectFunc) {
+        let container = document.getElementById(containerId);
+        if(container) {
         container.innerHTML = items.map(i => `<div class="converter-item" onclick="${selectFunc}('${i.code}')">${i.flag ? i.flag+' ' : ''}${i.code.toUpperCase()} - ${i.name}</div>`).join('');
-    }
-}
-
-function initLists() {
-    // قوائم العملات
-    createList(currencies, "fromCurrencyList", "selectCurrency('from', '{code}')".replace('{code}', "'+code+'"));
-    createList(currencies, "toCurrencyList", "selectCurrency('to', '{code}')".replace('{code}', "'+code+'"));
-    // قوائم الأطوال
-    createList(lengthUnits, "fromLengthList", "selectUnit('from','length','{code}')".replace('{code}', "'+code+'"));
-    createList(lengthUnits, "toLengthList", "selectUnit('to','length','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الأوزان
-    createList(weightUnits, "fromWeightList", "selectUnit('from','weight','{code}')".replace('{code}', "'+code+'"));
-    createList(weightUnits, "toWeightList", "selectUnit('to','weight','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الحرارة
-    createList(tempUnits, "fromTempList", "selectUnit('from','temp','{code}')".replace('{code}', "'+code+'"));
-    createList(tempUnits, "toTempList", "selectUnit('to','temp','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الوقت
-    createList(timeUnits, "fromTimeList", "selectUnit('from','time','{code}')".replace('{code}', "'+code+'"));
-    createList(timeUnits, "toTimeList", "selectUnit('to','time','{code}')".replace('{code}', "'+code+'"));
-    // قوائم السرعة
-    createList(speedUnits, "fromSpeedList", "selectUnit('from','speed','{code}')".replace('{code}', "'+code+'"));
-    createList(speedUnits, "toSpeedList", "selectUnit('to','speed','{code}')".replace('{code}', "'+code+'"));
-    // قوائم المساحة
-    createList(areaUnits, "fromAreaList", "selectUnit('from','area','{code}')".replace('{code}', "'+code+'"));
-    createList(areaUnits, "toAreaList", "selectUnit('to','area','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الحجم
-    createList(volumeUnits, "fromVolumeList", "selectUnit('from','volume','{code}')".replace('{code}', "'+code+'"));
-    createList(volumeUnits, "toVolumeList", "selectUnit('to','volume','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الطاقة
-    createList(powerUnits, "fromPowerList", "selectUnit('from','power','{code}')".replace('{code}', "'+code+'"));
-    createList(powerUnits, "toPowerList", "selectUnit('to','power','{code}')".replace('{code}', "'+code+'"));
-    // قوائم الزوايا
-    createList(angleUnits, "fromAngleList", "selectUnit('from','angle','{code}')".replace('{code}', "'+code+'"));
-    createList(angleUnits, "toAngleList", "selectUnit('to','angle','{code}')".replace('{code}', "'+code+'"));
-}
-
-// ==================== دوال اختيار العملات والوحدات ====================
-function selectCurrency(type, code) {
-    let curr = currencies.find(c => c.code === code);
-    if(type === 'from') {
+        }
+        }
+        function initLists() {
+        // قوائم العملات
+        createList(currencies, "fromCurrencyList", "selectCurrency('from', '{code}')".replace('{code}', "'+code+'"));
+        createList(currencies, "toCurrencyList", "selectCurrency('to', '{code}')".replace('{code}', "'+code+'"));
+        // قوائم الأطوال
+        createList(lengthUnits, "fromLengthList", "selectUnit('from','length','{code}')".replace('{code}', "'+code+'"));
+        createList(lengthUnits, "toLengthList", "selectUnit('to','length','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الأوزان
+        createList(weightUnits, "fromWeightList", "selectUnit('from','weight','{code}')".replace('{code}', "'+code+'"));
+        createList(weightUnits, "toWeightList", "selectUnit('to','weight','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الحرارة
+        createList(tempUnits, "fromTempList", "selectUnit('from','temp','{code}')".replace('{code}', "'+code+'"));
+        createList(tempUnits, "toTempList", "selectUnit('to','temp','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الوقت
+        createList(timeUnits, "fromTimeList", "selectUnit('from','time','{code}')".replace('{code}', "'+code+'"));
+        createList(timeUnits, "toTimeList", "selectUnit('to','time','{code}')".replace('{code}', "'+code+'"));
+        // قوائم السرعة
+        createList(speedUnits, "fromSpeedList", "selectUnit('from','speed','{code}')".replace('{code}', "'+code+'"));
+        createList(speedUnits, "toSpeedList", "selectUnit('to','speed','{code}')".replace('{code}', "'+code+'"));
+        // قوائم المساحة
+        createList(areaUnits, "fromAreaList", "selectUnit('from','area','{code}')".replace('{code}', "'+code+'"));
+        createList(areaUnits, "toAreaList", "selectUnit('to','area','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الحجم
+        createList(volumeUnits, "fromVolumeList", "selectUnit('from','volume','{code}')".replace('{code}', "'+code+'"));
+        createList(volumeUnits, "toVolumeList", "selectUnit('to','volume','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الطاقة
+        createList(powerUnits, "fromPowerList", "selectUnit('from','power','{code}')".replace('{code}', "'+code+'"));
+        createList(powerUnits, "toPowerList", "selectUnit('to','power','{code}')".replace('{code}', "'+code+'"));
+        // قوائم الزوايا
+        createList(angleUnits, "fromAngleList", "selectUnit('from','angle','{code}')".replace('{code}', "'+code+'"));
+        createList(angleUnits, "toAngleList", "selectUnit('to','angle','{code}')".replace('{code}', "'+code+'"));
+        // قوائم البيانات
+        createList(dataUnits, "fromDataList", "selectUnit('from','data','{code}')".replace('{code}', "'+code+'"));
+        createList(dataUnits, "toDataList", "selectUnit('to','data','{code}')".replace('{code}', "'+code+'"));
+        }
+        
+        // ==================== دوال اختيار العملات والوحدات ====================
+        function selectCurrency(type, code) {
+        let curr = currencies.find(c => c.code === code);
+        if(type === 'from') {
         selectedFromCurrency = code;
         document.getElementById("fromCurrencySearch").value = curr.flag + " " + code;
-    } else {
+        } else {
         selectedToCurrency = code;
         document.getElementById("toCurrencySearch").value = curr.flag + " " + code;
-    }
-    document.getElementById(type + "CurrencyList").classList.remove("show");
-}
-
-function selectUnit(type, unitType, code) {
-    let unit, displayName;
-    if(unitType === 'length') {
-        unit = lengthUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromLength = code; document.getElementById("fromLengthSearch").value = unit.name; }
-        else { selectedToLength = code; document.getElementById("toLengthSearch").value = unit.name; }
-    }
-    else if(unitType === 'weight') {
-        unit = weightUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromWeight = code; document.getElementById("fromWeightSearch").value = unit.name; }
-        else { selectedToWeight = code; document.getElementById("toWeightSearch").value = unit.name; }
-    }
-    else if(unitType === 'temp') {
-        unit = tempUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromTemp = code; document.getElementById("fromTempSearch").value = unit.name; }
-        else { selectedToTemp = code; document.getElementById("toTempSearch").value = unit.name; }
-    }
-    else if(unitType === 'time') {
-        unit = timeUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromTime = code; document.getElementById("fromTimeSearch").value = unit.name; }
-        else { selectedToTime = code; document.getElementById("toTimeSearch").value = unit.name; }
-    }
-    else if(unitType === 'speed') {
-        unit = speedUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromSpeed = code; document.getElementById("fromSpeedSearch").value = unit.name; }
-        else { selectedToSpeed = code; document.getElementById("toSpeedSearch").value = unit.name; }
-    }
-    else if(unitType === 'area') {
-        unit = areaUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromArea = code; document.getElementById("fromAreaSearch").value = unit.name; }
-        else { selectedToArea = code; document.getElementById("toAreaSearch").value = unit.name; }
-    }
-    else if(unitType === 'volume') {
-        unit = volumeUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromVolume = code; document.getElementById("fromVolumeSearch").value = unit.name; }
-        else { selectedToVolume = code; document.getElementById("toVolumeSearch").value = unit.name; }
-    }
-    else if(unitType === 'power') {
-        unit = powerUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromPower = code; document.getElementById("fromPowerSearch").value = unit.name; }
-        else { selectedToPower = code; document.getElementById("toPowerSearch").value = unit.name; }
-    }
-    else if(unitType === 'angle') {
-        unit = angleUnits.find(u => u.code === code);
-        if(type === 'from') { selectedFromAngle = code; document.getElementById("fromAngleSearch").value = unit.name; }
-        else { selectedToAngle = code; document.getElementById("toAngleSearch").value = unit.name; }
-    }
-    document.getElementById(type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "List").classList.remove("show");
-}
-
-function filterList(type, unitType) {
-    let searchTerm = document.getElementById(type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "Search")?.value.toLowerCase() || "";
-    let items = [];
-    if(unitType === 'currency') items = currencies;
-    else if(unitType === 'length') items = lengthUnits;
-    else if(unitType === 'weight') items = weightUnits;
-    else if(unitType === 'temp') items = tempUnits;
-    else if(unitType === 'time') items = timeUnits;
-    else if(unitType === 'speed') items = speedUnits;
-    else if(unitType === 'area') items = areaUnits;
-    else if(unitType === 'volume') items = volumeUnits;
-    else if(unitType === 'power') items = powerUnits;
-    else if(unitType === 'angle') items = angleUnits;
-    
-    let filtered = items.filter(i => i.name.toLowerCase().includes(searchTerm) || i.code.includes(searchTerm));
-    let listId = type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "List";
-    let container = document.getElementById(listId);
-    if(container) {
+        }
+        document.getElementById(type + "CurrencyList").classList.remove("show");
+        }
+        
+        function selectUnit(type, unitType, code) {
+        let unit, searchId, listId;
+        let typeMap = {
+        'length': {units: lengthUnits, fromVar: 'selectedFromLength', toVar: 'selectedToLength', fromSearch: 'fromLengthSearch', toSearch: 'toLengthSearch'},
+        'weight': {units: weightUnits, fromVar: 'selectedFromWeight', toVar: 'selectedToWeight', fromSearch: 'fromWeightSearch', toSearch: 'toWeightSearch'},
+        'temp': {units: tempUnits, fromVar: 'selectedFromTemp', toVar: 'selectedToTemp', fromSearch: 'fromTempSearch', toSearch: 'toTempSearch'},
+        'time': {units: timeUnits, fromVar: 'selectedFromTime', toVar: 'selectedToTime', fromSearch: 'fromTimeSearch', toSearch: 'toTimeSearch'},
+        'speed': {units: speedUnits, fromVar: 'selectedFromSpeed', toVar: 'selectedToSpeed', fromSearch: 'fromSpeedSearch', toSearch: 'toSpeedSearch'},
+        'area': {units: areaUnits, fromVar: 'selectedFromArea', toVar: 'selectedToArea', fromSearch: 'fromAreaSearch', toSearch: 'toAreaSearch'},
+        'volume': {units: volumeUnits, fromVar: 'selectedFromVolume', toVar: 'selectedToVolume', fromSearch: 'fromVolumeSearch', toSearch: 'toVolumeSearch'},
+        'power': {units: powerUnits, fromVar: 'selectedFromPower', toVar: 'selectedToPower', fromSearch: 'fromPowerSearch', toSearch: 'toPowerSearch'},
+        'angle': {units: angleUnits, fromVar: 'selectedFromAngle', toVar: 'selectedToAngle', fromSearch: 'fromAngleSearch', toSearch: 'toAngleSearch'},
+        'data': {units: dataUnits, fromVar: 'selectedFromData', toVar: 'selectedToData', fromSearch: 'fromDataSearch', toSearch: 'toDataSearch'}
+        };
+        
+        let map = typeMap[unitType];
+        if (!map) return;
+        unit = map.units.find(u => u.code === code);
+        if(type === 'from') {
+        window[map.fromVar] = code;
+        document.getElementById(map.fromSearch).value = unit.name;
+        } else {
+        window[map.toVar] = code;
+        document.getElementById(map.toSearch).value = unit.name;
+        }
+        
+        listId = type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "List";
+        document.getElementById(listId)?.classList.remove("show");
+        }
+        
+        function filterList(type, unitType) {
+        let searchId = type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "Search";
+        let searchTerm = document.getElementById(searchId)?.value.toLowerCase() || "";
+        let items = [];
+        let unitMap = {
+        'currency': currencies, 'length': lengthUnits, 'weight': weightUnits,
+        'temp': tempUnits, 'time': timeUnits, 'speed': speedUnits,
+        'area': areaUnits, 'volume': volumeUnits, 'power': powerUnits,
+        'angle': angleUnits, 'data': dataUnits
+        };
+        items = unitMap[unitType] || [];
+        
+        let filtered = items.filter(i => i.name.toLowerCase().includes(searchTerm) || i.code.toLowerCase().includes(searchTerm));
+        let listId = type + unitType.charAt(0).toUpperCase() + unitType.slice(1) + "List";
+        let container = document.getElementById(listId);
+        if(container) {
         container.innerHTML = filtered.map(i => `<div class="converter-item" onclick="selectUnit('${type}','${unitType}','${i.code}')">${i.flag ? i.flag+' ' : ''}${i.code.toUpperCase()} - ${i.name}</div>`).join('');
         container.classList.add("show");
-    }
-}
-
-document.addEventListener("click", (e) => {
-    if(!e.target.closest(".converter-search")) {
+        }
+        }
+        
+        // إخفاء القوائم عند النقر خارجها
+        document.addEventListener("click", (e) => {
+        if(!e.target.closest(".converter-search")) {
         document.querySelectorAll(".converter-list").forEach(l => l.classList.remove("show"));
-    }
-});
-
-// ==================== حاسبة العمر الذكية (مدخل يدوي) ====================
-function parseDateInput(input) {
-    let cleaned = input.replace(/[^0-9/-]/g, '');
-    let parts;
-    if(cleaned.includes('-')) parts = cleaned.split('-');
-    else if(cleaned.includes('/')) parts = cleaned.split('/');
-    else return null;
-    if(parts.length !== 3) return null;
-    if(parts[0].length === 4) return new Date(parts[0], parts[1]-1, parts[2]);
-    else if(parts[2].length === 4) return new Date(parts[2], parts[1]-1, parts[0]);
-    else return null;
-}
-
-function calculateFullAgeText() {
-    let input = document.getElementById("birthDateText").value;
-    let birth = parseDateInput(input);
-    if(!birth || isNaN(birth)) {
+        }
+        });
+        // ==================== حاسبة العمر الذكية ====================
+        function parseDateInput(input) {
+        let cleaned = input.replace(/[^0-9/-]/g, '');
+        let parts;
+        if(cleaned.includes('-')) parts = cleaned.split('-');
+        else if(cleaned.includes('/')) parts = cleaned.split('/');
+        else return null;
+        if(parts.length !== 3) return null;
+        let d1 = parseInt(parts[0]), d2 = parseInt(parts[1]), d3 = parseInt(parts[2]);
+        if(parts[0].length === 4) return new Date(d1, d2-1, d3);
+        else if(parts[2].length === 4) return new Date(d3, d2-1, d1);
+        else return null;
+        }
+        
+        function calculateFullAgeText() {
+        let input = document.getElementById("birthDateText").value;
+        let birth = parseDateInput(input);
+        if(!birth || isNaN(birth)) {
         showNotification("صيغة تاريخ غير صحيحة. استخدم مثلاً: 2000-01-01 أو 01/01/2000");
         return;
-    }
-    let now = new Date();
-    let years = now.getFullYear() - birth.getFullYear();
-    let months = now.getMonth() - birth.getMonth();
-    let days = now.getDate() - birth.getDate();
-    if(days < 0) {
+        }
+        if(birth > new Date()) {
+        showNotification("التاريخ لا يمكن أن يكون في المستقبل!");
+        return;
+        }
+        let now = new Date();
+        let years = now.getFullYear() - birth.getFullYear();
+        let months = now.getMonth() - birth.getMonth();
+        let days = now.getDate() - birth.getDate();
+        if(days < 0) {
         months--;
-        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-    }
-    if(months < 0) {
+        let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        }
+        if(months < 0) {
         years--;
         months += 12;
-    }
-    let totalSec = Math.floor((now - birth) / 1000);
-    let totalMin = Math.floor(totalSec / 60);
-    let totalHour = Math.floor(totalMin / 60);
-    let totalDay = Math.floor(totalHour / 24);
-    document.getElementById("fullAgeTextResult").innerHTML = `العمر: ${years} سنة و ${months} شهر و ${days} يوم`;
-    document.getElementById("ageTextDetails").innerHTML = `📊 ${totalDay.toLocaleString()} يوم | ${totalHour.toLocaleString()} ساعة | ${totalMin.toLocaleString()} دقيقة | ${totalSec.toLocaleString()} ثانية`;
-}
-
-// ==================== محول العملات ====================
-async function convertCurrency() {
-    let amount = parseFloat(document.getElementById("currencyAmount").value);
-    let rates = {USD:1, EUR:0.92, GBP:0.79, JPY:151.5, CAD:1.36, SAR:3.75, AED:3.67, EGP:47.5, TRY:32.3, SYP:15000, IQD:1310, KWD:0.31, QAR:3.64, BHD:0.38, JOD:0.71};
-    let rate = rates[selectedToCurrency] / rates[selectedFromCurrency];
-    let result = amount * rate;
-    document.getElementById("currencyResult").innerHTML = `النتيجة: ${result.toFixed(2)} ${selectedToCurrency}`;
-}
-
-// ==================== مولد كلمات مرور ====================
-function generatePassword() {
-    let len = parseInt(document.getElementById("passwordLength").value);
-    let chars = "";
-    if(document.getElementById("includeUpper").checked) chars += "ABCDEFGHJKLMNPQRSTUVWXYZ";
-    if(document.getElementById("includeLower").checked) chars += "abcdefghijkmnopqrstuvwxyz";
-    if(document.getElementById("includeNumbers").checked) chars += "23456789";
-    if(document.getElementById("includeSymbols").checked) chars += "!@#$%&*?-_+=[]{}";
-    if(!chars) { showNotification("اختر نوعاً واحداً على الأقل"); return; }
-    let pwd = "";
-    for(let i = 0; i < len; i++) pwd += chars[Math.floor(Math.random() * chars.length)];
-    document.getElementById("passwordResult").innerHTML = pwd;
-}
-
-// ==================== عداد الكلمات والحروف والجمل ====================
-function countWords() {
-    let t = document.getElementById("textInput").value;
-    let w = t.trim() === "" ? 0 : t.trim().split(/\s+/).length;
-    let c = t.replace(/\s/g, "").length;
-    let s = t.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
-    document.getElementById("wordCountResult").innerHTML = `الكلمات: ${w} | الحروف: ${c} | الجمل: ${s}`;
-}
-
-// ==================== النسبة المئوية ====================
-function calculatePercentage() {
-    let n = parseFloat(document.getElementById("percentValue").value);
-    let p = parseFloat(document.getElementById("percentPercent").value);
-    document.getElementById("percentResult").innerHTML = `النتيجة: ${(n * p / 100).toFixed(2)}`;
-}
-
-// ==================== تشفير وفك تشفير الروابط ====================
-function encodeURL() {
-    document.getElementById("urlResult").innerHTML = encodeURIComponent(document.getElementById("urlInput").value);
-}
-
-function decodeURL() {
-    try {
+        }
+        let totalSec = Math.floor((now - birth) / 1000);
+        let totalMin = Math.floor(totalSec / 60);
+        let totalHour = Math.floor(totalMin / 60);
+        let totalDay = Math.floor(totalHour / 24);
+        document.getElementById("fullAgeTextResult").innerHTML = `العمر: ${years} سنة و ${months} شهر و ${days} يوم`;
+        document.getElementById("ageTextDetails").innerHTML = `📊 ${totalDay.toLocaleString()} يوم | ${totalHour.toLocaleString()} ساعة | ${totalMin.toLocaleString()} دقيقة | ${totalSec.toLocaleString()} ثانية`;
+        }
+        
+        // ==================== محول العملات ====================
+        async function convertCurrency() {
+        let amount = parseFloat(document.getElementById("currencyAmount").value);
+        if(isNaN(amount)) { showNotification("أدخل رقماً صحيحاً"); return; }
+        let rates = {USD:1, EUR:0.92, GBP:0.79, JPY:151.5, CAD:1.36, SAR:3.75, AED:3.67, EGP:47.5, TRY:32.3, SYP:15000, IQD:1310, KWD:0.31, QAR:3.64, BHD:0.38, JOD:0.71};
+        let rate = rates[selectedToCurrency] / rates[selectedFromCurrency];
+        let result = amount * rate;
+        document.getElementById("currencyResult").innerHTML = `النتيجة: ${result.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${selectedToCurrency}`;
+        }
+        
+        // ==================== مولد كلمات مرور ====================
+        function generatePassword() {
+        let len = parseInt(document.getElementById("passwordLength").value);
+        if(len < 6) len = 6;
+        if(len > 64) len = 64;
+        let chars = "";
+        if(document.getElementById("includeUpper").checked) chars += "ABCDEFGHJKLMNPQRSTUVWXYZ";
+        if(document.getElementById("includeLower").checked) chars += "abcdefghijkmnopqrstuvwxyz";
+        if(document.getElementById("includeNumbers").checked) chars += "23456789";
+        if(document.getElementById("includeSymbols").checked) chars += "!@#$%&*?-_+=[]{}";
+        if(!chars) { showNotification("اختر نوعاً واحداً على الأقل"); return; }
+        let pwd = "";
+        for(let i = 0; i < len; i++) pwd += chars[Math.floor(Math.random() * chars.length)];
+        document.getElementById("passwordResult").innerHTML = pwd;
+        }
+        
+        // ==================== عداد الكلمات والحروف والجمل ====================
+        function countWords() {
+        let t = document.getElementById("textInput").value;
+        let w = t.trim() === "" ? 0 : t.trim().split(/\s+/).length;
+        let c = t.replace(/\s/g, "").length;
+        let s = t.split(/[.!?؟]+/).filter(s => s.trim().length > 0).length;
+        document.getElementById("wordCountResult").innerHTML = `الكلمات: ${w} | الحروف: ${c} | الجمل: ${s}`;
+        }
+        
+        // عداد تلقائي عند الكتابة
+        document.addEventListener('DOMContentLoaded', function() {
+        let textInput = document.getElementById("textInput");
+        if(textInput) {
+        textInput.addEventListener('input', countWords);
+        }
+        });
+        // ==================== النسبة المئوية ====================
+        function calculatePercentage() {
+        let n = parseFloat(document.getElementById("percentValue").value);
+        let p = parseFloat(document.getElementById("percentPercent").value);
+        if(isNaN(n) || isNaN(p)) { showNotification("أدخل أرقاماً صحيحة"); return; }
+        document.getElementById("percentResult").innerHTML = `النتيجة: ${(n * p / 100).toFixed(2)}`;
+        }
+        
+        // ==================== تشفير وفك تشفير الروابط ====================
+        function encodeURL() {
+        document.getElementById("urlResult").innerHTML = encodeURIComponent(document.getElementById("urlInput").value);
+        }
+        
+        function decodeURL() {
+        try {
         document.getElementById("decodeResult").innerHTML = decodeURIComponent(document.getElementById("decodeInput").value);
-    } catch(e) {
-        document.getElementById("decodeResult").innerHTML = "خطأ في التشفير";
-    }
-}
-
-// ==================== الفرق بين تاريخين ====================
-function calculateDateDiff() {
-    let s = new Date(document.getElementById("startDate").value);
-    let e = new Date(document.getElementById("endDate").value);
-    let diff = Math.ceil(Math.abs(e - s) / (1000 * 60 * 60 * 24));
-    document.getElementById("dateDiffResult").innerHTML = `الفرق: ${diff} يوم`;
-}
-
-// ==================== كتابة التاريخ نصياً ====================
-function writeDateInWords() {
-    let d = new Date(document.getElementById("dateInput").value);
-    let m = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
-    document.getElementById("dateWordsResult").innerHTML = `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
-}
-
-// ==================== الجذر التربيعي ====================
-function calculateSquareRoot() {
-    let v = parseFloat(document.getElementById("sqrtValue").value);
-    document.getElementById("sqrtResult").innerHTML = `√${v} = ${Math.sqrt(v).toFixed(6)}`;
-}
-
-// ==================== محولات الوحدات ====================
-function convertLength() {
-    let v = parseFloat(document.getElementById("lengthValue").value);
-    let toMeter = {m:1, cm:0.01, mm:0.001, km:1000, ft:0.3048, in:0.0254, yd:0.9144, mi:1609.34};
-    let result = v * toMeter[selectedFromLength] / toMeter[selectedToLength];
-    document.getElementById("lengthResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToLength}`;
-}
-
-function convertWeight() {
-    let v = parseFloat(document.getElementById("weightValue").value);
-    let toGram = {kg:1000, g:1, mg:0.001, lb:453.592, oz:28.3495, ton:1000000};
-    let result = v * toGram[selectedFromWeight] / toGram[selectedToWeight];
-    document.getElementById("weightResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToWeight}`;
-}
-
-function convertTemperature() {
-    let v = parseFloat(document.getElementById("tempValue").value);
-    if(selectedFromTemp === 'c') v = v;
-    else if(selectedFromTemp === 'f') v = (v - 32) * 5/9;
-    else if(selectedFromTemp === 'k') v = v - 273.15;
-    if(selectedToTemp === 'c') v = v;
-    else if(selectedToTemp === 'f') v = v * 9/5 + 32;
-    else if(selectedToTemp === 'k') v = v + 273.15;
-    document.getElementById("tempResult").innerHTML = `النتيجة: ${v.toFixed(2)} ${selectedToTemp.toUpperCase()}`;
-}
-
-function convertTime() {
-    let v = parseFloat(document.getElementById("timeValue").value);
-    let toSec = {s:1, m:60, h:3600, d:86400, w:604800, month:2592000};
-    let result = v * toSec[selectedFromTime] / toSec[selectedToTime];
-    document.getElementById("timeResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToTime}`;
-}
-
-function convertSpeed() {
-    let v = parseFloat(document.getElementById("speedValue").value);
-    let toMs = {kmh:0.277778, mph:0.44704, ms:1, knot:0.514444};
-    let result = v * toMs[selectedFromSpeed] / toMs[selectedToSpeed];
-    document.getElementById("speedResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToSpeed}`;
-}
-
-function convertArea() {
-    let v = parseFloat(document.getElementById("areaValue").value);
-    let toM2 = {m2:1, cm2:0.0001, km2:1000000, ft2:0.092903, acre:4046.86, ha:10000};
-    let result = v * toM2[selectedFromArea] / toM2[selectedToArea];
-    document.getElementById("areaResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToArea}`;
-}
-
-function convertVolume() {
-    let v = parseFloat(document.getElementById("volumeValue").value);
-    let toLiter = {l:1, ml:0.001, gal:3.78541, m3:1000};
-    let result = v * toLiter[selectedFromVolume] / toLiter[selectedToVolume];
-    document.getElementById("volumeResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToVolume}`;
-}
-
-function convertPower() {
-    let v = parseFloat(document.getElementById("powerValue").value);
-    let toWatt = {w:1, kw:1000, hp:745.7};
-    let result = v * toWatt[selectedFromPower] / toWatt[selectedToPower];
-    document.getElementById("powerResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToPower}`;
-}
-
-function convertAngle() {
-    let v = parseFloat(document.getElementById("angleValue").value);
-    let result;
-    if(selectedFromAngle === 'deg' && selectedToAngle === 'rad') result = v * Math.PI / 180;
-    else if(selectedFromAngle === 'rad' && selectedToAngle === 'deg') result = v * 180 / Math.PI;
-    else result = v;
-    document.getElementById("angleResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToAngle}`;
-}
-
-// ==================== الأدوات الإضافية ====================
-function calculateGPA() {
-    let g = parseFloat(document.getElementById("totalGrades").value);
-    let p = parseFloat(document.getElementById("totalPossible").value);
-    document.getElementById("gpaResult").innerHTML = `المعدل: ${((g / p) * 100).toFixed(2)}%`;
-}
-
-function calculateDiscount() {
-    let p = parseFloat(document.getElementById("originalPrice").value);
-    let d = parseFloat(document.getElementById("discountPercent").value);
-    let after = p - (p * d / 100);
-    document.getElementById("discountResult").innerHTML = `السعر بعد الخصم: ${after.toFixed(2)} | التوفير: ${(p * d / 100).toFixed(2)}`;
-}
-
-function checkPasswordStrength() {
-    let pwd = document.getElementById("passwordStrength").value;
-    let s = 0;
-    if(pwd.length >= 8) s++;
-    if(pwd.match(/[A-Z]/)) s++;
-    if(pwd.match(/[a-z]/)) s++;
-    if(pwd.match(/[0-9]/)) s++;
-    if(pwd.match(/[^A-Za-z0-9]/)) s++;
-    let txt = ["ضعيفة جداً", "ضعيفة", "متوسطة", "جيدة", "قوية جداً"][s-1] || "ضعيفة جداً";
-    document.getElementById("strengthResult").innerHTML = `القوة: ${txt} (${s}/5)`;
-}
-
-function convertBase() {
-    let num = document.getElementById("numberInput").value;
-    let from = parseInt(document.getElementById("baseSelect").value);
-    let dec = parseInt(num, from);
-    if(isNaN(dec)) { document.getElementById("baseResult").innerHTML = "خطأ في الإدخال"; return; }
-    document.getElementById("baseResult").innerHTML = `عشري: ${dec} | ثنائي: ${dec.toString(2)} | سداسي: ${dec.toString(16).toUpperCase()} | ثماني: ${dec.toString(8)}`;
-}
-
-function calculateDifference() {
-    let n1 = parseFloat(document.getElementById("num1").value);
-    let n2 = parseFloat(document.getElementById("num2").value);
-    let diff = Math.abs(n1 - n2);
-    let pct = (diff / Math.max(n1, n2)) * 100;
-    document.getElementById("diffResult").innerHTML = `الفرق: ${diff} | نسبة التغير: ${pct.toFixed(2)}%`;
-}
-
-function calculateMean() {
-    let input = document.getElementById("numbersInput").value;
-    let numbers = input.split(/[ ,\n]+/).filter(n => n.trim() !== "").map(Number).filter(n => !isNaN(n));
-    if(numbers.length === 0) { document.getElementById("meanResult").innerHTML = "المتوسط: -- (أدخل أرقاماً صحيحة)"; return; }
-    let sum = numbers.reduce((a, b) => a + b, 0);
-    let mean = sum / numbers.length;
-    document.getElementById("meanResult").innerHTML = `المتوسط: ${mean.toFixed(2)} (من ${numbers.length} رقم)`;
-}
-
-// ==================== عداد الزوار الحقيقي ====================
-async function updateRealVisitorCount() {
-    try {
+        } catch(e) {
+        document.getElementById("decodeResult").innerHTML = "خطأ في فك التشفير - تأكد من النص المدخل";
+        }
+        }
+        
+        // ==================== الفرق بين تاريخين ====================
+        function calculateDateDiff() {
+        let s = new Date(document.getElementById("startDate").value);
+        let e = new Date(document.getElementById("endDate").value);
+        if(isNaN(s) || isNaN(e)) { showNotification("أدخل تاريخين صحيحين"); return; }
+        let diff = Math.ceil(Math.abs(e - s) / (1000 * 60 * 60 * 24));
+        document.getElementById("dateDiffResult").innerHTML = `الفرق: ${diff} يوم`;
+        }
+        
+        // ==================== كتابة التاريخ نصياً ====================
+        function writeDateInWords() {
+        let d = new Date(document.getElementById("dateInput").value);
+        if(isNaN(d)) { showNotification("أدخل تاريخاً صحيحاً"); return; }
+        let m = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+        document.getElementById("dateWordsResult").innerHTML = `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
+        }
+        
+        // ==================== الجذر التربيعي ====================
+        function calculateSquareRoot() {
+        let v = parseFloat(document.getElementById("sqrtValue").value);
+        if(isNaN(v) || v < 0) { showNotification("أدخل رقماً موجباً"); return; }
+        document.getElementById("sqrtResult").innerHTML = `√${v} = ${Math.sqrt(v).toFixed(6)}`;
+        }
+        
+        // ==================== محولات الوحدات ====================
+        function convertLength() {
+        let v = parseFloat(document.getElementById("lengthValue").value);
+        if(isNaN(v)) { showNotification("أدخل قيمة صحيحة"); return; }
+        let toMeter = {m:1, cm:0.01, mm:0.001, km:1000, ft:0.3048, in:0.0254, yd:0.9144, mi:1609.34};
+        let result = v * toMeter[selectedFromLength] / toMeter[selectedToLength];
+        document.getElementById("lengthResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToLength}`;
+        }
+        
+        function convertWeight() {
+        let v = parseFloat(document.getElementById("weightValue").value);
+        if(isNaN(v)) return;
+        let toGram = {kg:1000, g:1, mg:0.001, lb:453.592, oz:28.3495, ton:1000000};
+        let result = v * toGram[selectedFromWeight] / toGram[selectedToWeight];
+        document.getElementById("weightResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToWeight}`;
+        }
+        
+        function convertTemperature() {
+        let v = parseFloat(document.getElementById("tempValue").value);
+        if(isNaN(v)) return;
+        let celsius = v;
+        if(selectedFromTemp === 'f') celsius = (v - 32) * 5/9;
+        else if(selectedFromTemp === 'k') celsius = v - 273.15;
+        
+        let result = celsius;
+        if(selectedToTemp === 'f') result = celsius * 9/5 + 32;
+        else if(selectedToTemp === 'k') result = celsius + 273.15;
+        
+        document.getElementById("tempResult").innerHTML = `النتيجة: ${result.toFixed(2)} ${selectedToTemp.toUpperCase()}`;
+        }
+        
+        function convertTime() {
+        let v = parseFloat(document.getElementById("timeValue").value);
+        if(isNaN(v)) return;
+        let toSec = {s:1, m:60, h:3600, d:86400, w:604800, month:2592000};
+        let result = v * toSec[selectedFromTime] / toSec[selectedToTime];
+        document.getElementById("timeResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToTime}`;
+        }
+        
+        function convertSpeed() {
+        let v = parseFloat(document.getElementById("speedValue").value);
+        if(isNaN(v)) return;
+        let toMs = {kmh:0.277778, mph:0.44704, ms:1, knot:0.514444};
+        let result = v * toMs[selectedFromSpeed] / toMs[selectedToSpeed];
+        document.getElementById("speedResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToSpeed}`;
+        }
+        
+        function convertArea() {
+        let v = parseFloat(document.getElementById("areaValue").value);
+        if(isNaN(v)) return;
+        let toM2 = {m2:1, cm2:0.0001, km2:1000000, ft2:0.092903, acre:4046.86, ha:10000};
+        let result = v * toM2[selectedFromArea] / toM2[selectedToArea];
+        document.getElementById("areaResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToArea}`;
+        }
+        
+        function convertVolume() {
+        let v = parseFloat(document.getElementById("volumeValue").value);
+        if(isNaN(v)) return;
+        let toLiter = {l:1, ml:0.001, gal:3.78541, m3:1000};
+        let result = v * toLiter[selectedFromVolume] / toLiter[selectedToVolume];
+        document.getElementById("volumeResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToVolume}`;
+        }
+        
+        function convertPower() {
+        let v = parseFloat(document.getElementById("powerValue").value);
+        if(isNaN(v)) return;
+        let toWatt = {w:1, kw:1000, hp:745.7};
+        let result = v * toWatt[selectedFromPower] / toWatt[selectedToPower];
+        document.getElementById("powerResult").innerHTML = `النتيجة: ${result.toFixed(4)} ${selectedToPower}`;
+        }
+        
+        function convertAngle() {
+        let v = parseFloat(document.getElementById("angleValue").value);
+        if(isNaN(v)) return;
+        let result;
+        if(selectedFromAngle === 'deg' && selectedToAngle === 'rad') result = v * Math.PI / 180;
+        else if(selectedFromAngle === 'rad' && selectedToAngle === 'deg') result = v * 180 / Math.PI;
+        else result = v;
+        document.getElementById("angleResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToAngle}`;
+        }
+        
+        // ==================== محول البيانات الرقمية ====================
+        function convertData() {
+        let v = parseFloat(document.getElementById("dataValue").value);
+        if(isNaN(v)) { showNotification("أدخل قيمة صحيحة"); return; }
+        let toByte = {bit:0.125, B:1, KB:1024, MB:1048576, GB:1073741824, TB:1099511627776, PB:1125899906842624};
+        let result = v * toByte[selectedFromData] / toByte[selectedToData];
+        document.getElementById("dataResult").innerHTML = `النتيجة: ${result.toFixed(6)} ${selectedToData}`;
+        }
+        // ==================== الآلة الحاسبة المتقدمة ====================
+        function calcInput(val) {
+        if(calcShouldReset) {
+        calcCurrentInput = '0';
+        calcShouldReset = false;
+        }
+        if(calcCurrentInput === '0' && val !== '.') {
+        calcCurrentInput = val;
+        } else {
+        calcCurrentInput += val;
+        }
+        updateCalcDisplay();
+        }
+        
+        function calcOperation(op) {
+        if(calcShouldReset) calcShouldReset = false;
+        let lastChar = calcCurrentInput.slice(-1);
+        if(['+', '-', '*', '/'].includes(lastChar)) {
+        calcCurrentInput = calcCurrentInput.slice(0, -1) + op;
+        } else {
+        calcCurrentInput += op;
+        }
+        updateCalcDisplay();
+        }
+        
+        function calcFunction(func) {
+        let current = parseFloat(calcCurrentInput);
+        if(isNaN(current)) return;
+        let result;
+        switch(func) {
+        case 'sqrt':
+        if(current < 0) { showNotification("لا يمكن حساب جذر تربيعي لعدد سالب"); return; }
+        result = Math.sqrt(current);
+        break;
+        case 'pow':
+        result = Math.pow(current, 2);
+        break;
+        case 'percent':
+        result = current / 100;
+        break;
+        }
+        calcCurrentInput = result.toString();
+        calcShouldReset = true;
+        updateCalcDisplay();
+        }
+        
+        function calcEqual() {
+        try {
+        let expression = calcCurrentInput.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+        let result = eval(expression);
+        if(!isFinite(result)) { showNotification("خطأ في العملية الحسابية"); return; }
+        calcHistory.push({expression: calcCurrentInput, result: result});
+        updateCalcHistory();
+        calcCurrentInput = result.toString();
+        calcShouldReset = true;
+        updateCalcDisplay();
+        } catch(e) {
+        showNotification("خطأ في العملية الحسابية");
+        }
+        }
+        
+        function calcClear() {
+        calcCurrentInput = '0';
+        calcShouldReset = false;
+        updateCalcDisplay();
+        }
+        
+        function calcBackspace() {
+        if(calcCurrentInput.length > 1) {
+        calcCurrentInput = calcCurrentInput.slice(0, -1);
+        } else {
+        calcCurrentInput = '0';
+        }
+        updateCalcDisplay();
+        }
+        
+        function updateCalcDisplay() {
+        let display = document.getElementById("calcDisplay");
+        if(display) display.value = calcCurrentInput;
+        }
+        
+        function updateCalcHistory() {
+        let list = document.getElementById("calcHistoryList");
+        let panel = document.getElementById("calcHistory");
+        if(list && calcHistory.length > 0) {
+        panel.style.display = 'block';
+        list.innerHTML = calcHistory.slice(-10).reverse().map(h => 
+        `<div class="history-item" onclick="calcHistorySelect('${h.result}')">${h.expression} = <strong>${h.result}</strong></div>`
+        ).join('');
+        }
+        }
+        
+        function calcHistorySelect(val) {
+        calcCurrentInput = val.toString();
+        calcShouldReset = true;
+        updateCalcDisplay();
+        }
+        
+        function clearCalcHistory() {
+        calcHistory = [];
+        let panel = document.getElementById("calcHistory");
+        if(panel) panel.style.display = 'none';
+        document.getElementById("calcHistoryList").innerHTML = '';
+        }
+        // ==================== المؤقت وساعة التوقيت ====================
+        function switchTimerMode(mode) {
+        timerMode = mode;
+        let stopwatchTab = document.getElementById("stopwatchTab");
+        let countdownTab = document.getElementById("countdownTab");
+        let stopwatchPanel = document.getElementById("stopwatchPanel");
+        let countdownPanel = document.getElementById("countdownPanel");
+        
+        if(mode === 'stopwatch') {
+        stopwatchTab.style.opacity = '1';
+        countdownTab.style.opacity = '0.7';
+        stopwatchPanel.style.display = 'block';
+        countdownPanel.style.display = 'none';
+        } else {
+        stopwatchTab.style.opacity = '0.7';
+        countdownTab.style.opacity = '1';
+        stopwatchPanel.style.display = 'none';
+        countdownPanel.style.display = 'block';
+        updateCountdownDisplay();
+        }
+        }
+        
+        // ساعة التوقيت
+        function startStopwatch() {
+        if(stopwatchRunning) return;
+        stopwatchRunning = true;
+        stopwatchInterval = setInterval(() => {
+        stopwatchTime++;
+        updateStopwatchDisplay();
+        }, 1000);
+        }
+        
+        function pauseStopwatch() {
+        stopwatchRunning = false;
+        clearInterval(stopwatchInterval);
+        }
+        
+        function resetStopwatch() {
+        pauseStopwatch();
+        stopwatchTime = 0;
+        updateStopwatchDisplay();
+        }
+        
+        function updateStopwatchDisplay() {
+        let h = Math.floor(stopwatchTime / 3600);
+        let m = Math.floor((stopwatchTime % 3600) / 60);
+        let s = stopwatchTime % 60;
+        document.getElementById("stopwatchDisplay").textContent = 
+        `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+        
+        // المؤقت التنازلي
+        function updateCountdownDisplay() {
+        let cdHours = parseInt(document.getElementById("cdHours").value) || 0;
+        let cdMinutes = parseInt(document.getElementById("cdMinutes").value) || 0;
+        let cdSeconds = parseInt(document.getElementById("cdSeconds").value) || 0;
+        countdownRemaining = cdHours * 3600 + cdMinutes * 60 + cdSeconds;
+        
+        let h = Math.floor(countdownRemaining / 3600);
+        let m = Math.floor((countdownRemaining % 3600) / 60);
+        let s = countdownRemaining % 60;
+        document.getElementById("countdownDisplay").textContent = 
+        `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+        
+        function startCountdown() {
+        if(countdownRunning) return;
+        updateCountdownDisplay();
+        if(countdownRemaining <= 0) { showNotification("اضبط الوقت أولاً"); return; }
+        countdownRunning = true;
+        countdownInterval = setInterval(() => {
+        countdownRemaining--;
+        let h = Math.floor(countdownRemaining / 3600);
+        let m = Math.floor((countdownRemaining % 3600) / 60);
+        let s = countdownRemaining % 60;
+        document.getElementById("countdownDisplay").textContent = 
+        `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        document.getElementById("cdHours").value = h;
+        document.getElementById("cdMinutes").value = m;
+        document.getElementById("cdSeconds").value = s;
+        
+        if(countdownRemaining <= 0) {
+        pauseCountdown();
+        showNotification("انتهى الوقت! ⏰");
+        }
+        }, 1000);
+        }
+        
+        function pauseCountdown() {
+        countdownRunning = false;
+        clearInterval(countdownInterval);
+        }
+        
+        function resetCountdown() {
+        pauseCountdown();
+        document.getElementById("cdHours").value = 0;
+        document.getElementById("cdMinutes").value = 5;
+        document.getElementById("cdSeconds").value = 0;
+        updateCountdownDisplay();
+        }
+        
+        // ==================== محول الإحداثيات الجغرافية ====================
+        function convertCoordinates() {
+        let lat = parseFloat(document.getElementById("latInput").value);
+        let lng = parseFloat(document.getElementById("lngInput").value);
+        if(isNaN(lat) || isNaN(lng)) { showNotification("أدخل إحداثيات صحيحة"); return; }
+        
+        function toDMS(deg) {
+        let d = Math.floor(Math.abs(deg));
+        let m = Math.floor((Math.abs(deg) - d) * 60);
+        let s = ((Math.abs(deg) - d - m/60) * 3600).toFixed(1);
+        let dir = deg >= 0 ? (deg === lat ? 'شمال' : 'شرق') : (deg === lat ? 'جنوب' : 'غرب');
+        return `${d}° ${m}' ${s}" ${dir}`;
+        }
+        
+        function toDM(deg) {
+        let d = Math.floor(Math.abs(deg));
+        let m = ((Math.abs(deg) - d) * 60).toFixed(3);
+        let dir = deg >= 0 ? (deg === lat ? 'N' : 'E') : (deg === lat ? 'S' : 'W');
+        return `${d}° ${m}' ${dir}`;
+        }
+        
+        document.getElementById("coordDecimal").textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        document.getElementById("coordDM").textContent = `${toDM(lat)}, ${toDM(lng)}`;
+        document.getElementById("coordDMS").textContent = `${toDMS(lat)}, ${toDMS(lng)}`;
+        }
+        // ==================== الأدوات الإضافية ====================
+        function calculateGPA() {
+        let g = parseFloat(document.getElementById("totalGrades").value);
+        let p = parseFloat(document.getElementById("totalPossible").value);
+        if(isNaN(g) || isNaN(p) || p === 0) { showNotification("أدخل قيماً صحيحة"); return; }
+        let percentage = (g / p) * 100;
+        let grade = percentage >= 90 ? 'ممتاز' : percentage >= 80 ? 'جيد جداً' : percentage >= 70 ? 'جيد' : percentage >= 60 ? 'مقبول' : 'ضعيف';
+        document.getElementById("gpaResult").innerHTML = `المعدل: ${percentage.toFixed(2)}% | التقدير: ${grade}`;
+        }
+        
+        function calculateDiscount() {
+        let p = parseFloat(document.getElementById("originalPrice").value);
+        let d = parseFloat(document.getElementById("discountPercent").value);
+        if(isNaN(p) || isNaN(d)) { showNotification("أدخل قيماً صحيحة"); return; }
+        let after = p - (p * d / 100);
+        document.getElementById("discountResult").innerHTML = `السعر بعد الخصم: ${after.toFixed(2)} | التوفير: ${(p * d / 100).toFixed(2)}`;
+        }
+        
+        function checkPasswordStrength() {
+        let pwd = document.getElementById("passwordStrength").value;
+        let s = 0;
+        if(pwd.length >= 12) s += 2;
+        else if(pwd.length >= 8) s++;
+        if(pwd.match(/[A-Z]/)) s++;
+        if(pwd.match(/[a-z]/)) s++;
+        if(pwd.match(/[0-9]/)) s++;
+        if(pwd.match(/[^A-Za-z0-9]/)) s++;
+        let txt = ["ضعيفة جداً", "ضعيفة", "متوسطة", "جيدة", "قوية", "قوية جداً"][Math.min(s, 5)];
+        let color = ["#ef4444", "#f59e0b", "#f59e0b", "#10b981", "#10b981", "#6366f1"][Math.min(s, 5)];
+        document.getElementById("strengthResult").innerHTML = `القوة: <span style="color:${color}">${txt}</span> (${Math.min(s,5)}/5)`;
+        }
+        
+        function convertBase() {
+        let num = document.getElementById("numberInput").value.trim();
+        let from = parseInt(document.getElementById("baseSelect").value);
+        let dec = parseInt(num, from);
+        if(isNaN(dec)) { document.getElementById("baseResult").innerHTML = "خطأ في الإدخال - تأكد من صحة الرقم"; return; }
+        document.getElementById("baseResult").innerHTML = `عشري: ${dec} | ثنائي: ${dec.toString(2)} | سداسي: ${dec.toString(16).toUpperCase()} | ثماني: ${dec.toString(8)}`;
+        }
+        
+        function calculateDifference() {
+        let n1 = parseFloat(document.getElementById("num1").value);
+        let n2 = parseFloat(document.getElementById("num2").value);
+        if(isNaN(n1) || isNaN(n2)) { showNotification("أدخل رقمين صحيحين"); return; }
+        let diff = Math.abs(n1 - n2);
+        let pct = ((diff / Math.abs(n1)) * 100);
+        let direction = n2 > n1 ? 'زيادة' : 'نقصان';
+        document.getElementById("diffResult").innerHTML = `الفرق: ${diff.toFixed(2)} | نسبة ${direction}: ${pct.toFixed(2)}%`;
+        }
+        
+        function calculateMean() {
+        let input = document.getElementById("numbersInput").value;
+        let numbers = input.split(/[ ,\n]+/).filter(n => n.trim() !== "").map(Number).filter(n => !isNaN(n));
+        if(numbers.length === 0) { document.getElementById("meanResult").innerHTML = "المتوسط: -- (أدخل أرقاماً صحيحة مفصولة بفواصل)"; return; }
+        let sum = numbers.reduce((a, b) => a + b, 0);
+        let mean = sum / numbers.length;
+        document.getElementById("meanResult").innerHTML = `المتوسط: ${mean.toFixed(2)} (من ${numbers.length} رقم)`;
+        }
+        
+        // ==================== عداد الزوار ====================
+        async function updateRealVisitorCount() {
+        try {
         const response = await fetch('https://api.countapi.xyz/hit/generalfix-tools/visitors');
         const data = await response.json();
         document.getElementById("viewCount").innerText = data.value.toLocaleString();
-    } catch(error) {
+        } catch(error) {
         let localCount = localStorage.getItem("real_visitor_fallback") || Math.floor(Math.random() * 500) + 100;
         if(!localStorage.getItem("real_visitor_fallback")) localStorage.setItem("real_visitor_fallback", localCount);
         else if(!localStorage.getItem("visitor_updated")) {
-            localCount = parseInt(localCount) + 1;
-            localStorage.setItem("real_visitor_fallback", localCount);
-            localStorage.setItem("visitor_updated", "true");
-            setTimeout(() => localStorage.removeItem("visitor_updated"), 1000);
+        localCount = parseInt(localCount) + 1;
+        localStorage.setItem("real_visitor_fallback", localCount);
+        localStorage.setItem("visitor_updated", "true");
+        setTimeout(() => localStorage.removeItem("visitor_updated"), 1000);
         }
         document.getElementById("viewCount").innerText = localCount.toLocaleString();
-    }
-}
-
-// ==================== واجهة المستخدم والثيمات ====================
-function setTheme(theme) {
-    document.body.classList.remove("light-mode", "sepia-mode");
-    if(theme === "light") document.body.classList.add("light-mode");
-    else if(theme === "sepia") document.body.classList.add("sepia-mode");
-    localStorage.setItem("active_theme", theme);
-    document.querySelectorAll(".theme-option").forEach(opt => {
+        }
+        }
+        // ==================== واجهة المستخدم والثيمات ====================
+        function setTheme(theme) {
+        document.body.classList.remove("light-mode", "sepia-mode");
+        if(theme === "light") document.body.classList.add("light-mode");
+        else if(theme === "sepia") document.body.classList.add("sepia-mode");
+        localStorage.setItem("active_theme", theme);
+        document.querySelectorAll(".theme-option").forEach(opt => {
         if(opt.getAttribute("data-theme") === theme) opt.classList.add("active");
         else opt.classList.remove("active");
-    });
-}
-
-function loadTheme() {
-    let saved = localStorage.getItem("active_theme") || "dark";
-    setTheme(saved);
-}
-
-document.querySelectorAll(".theme-option").forEach(btn => {
-    btn.addEventListener("click", () => setTheme(btn.getAttribute("data-theme")));
-});
-
-function navigateTo(id) {
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active-section"));
-    document.getElementById(id).classList.add("active-section");
-    toggleSidebar();
-}
-
-function toggleSidebar() {
-    document.querySelector(".menu-btn").classList.toggle("active");
-    document.querySelector(".sidebar").classList.toggle("open");
-    document.querySelector(".overlay").classList.toggle("active");
-}
-
-function searchTools() {
-    let q = document.getElementById("searchInput").value.toLowerCase();
-    document.querySelectorAll(".tool-card").forEach(c => {
-        c.style.display = c.getAttribute("data-name").toLowerCase().includes(q) || q === "" ? "" : "none";
-    });
-}
-
-// ==================== شاشة الترحيب ====================
-(function() {
-    if(localStorage.getItem("tools_terms_accepted") === "true") {
+        });
+        }
+        
+        function loadTheme() {
+        let saved = localStorage.getItem("active_theme") || "dark";
+        setTheme(saved);
+        }
+        
+        document.querySelectorAll(".theme-option").forEach(btn => {
+        btn.addEventListener("click", () => setTheme(btn.getAttribute("data-theme")));
+        });
+        
+        function navigateTo(id) {
+        document.querySelectorAll("section").forEach(s => s.classList.remove("active-section"));
+        let section = document.getElementById(id);
+        if(section) section.classList.add("active-section");
+        
+        // تحديث نشاط القائمة الجانبية
+        document.querySelectorAll(".sidebar a").forEach(a => a.classList.remove("active"));
+        let links = document.querySelectorAll(".sidebar a");
+        let sectionNames = {'home': 0, 'converters': 1, 'extras': 2, 'about': 3, 'contact': 4};
+        if(sectionNames[id] !== undefined && links[sectionNames[id]]) {
+        links[sectionNames[id]].classList.add("active");
+        }
+        
+        toggleSidebar();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function toggleSidebar() {
+        document.querySelector(".menu-btn").classList.toggle("active");
+        document.querySelector(".sidebar").classList.toggle("open");
+        document.querySelector(".overlay").classList.toggle("active");
+        }
+        
+        function searchTools() {
+        let q = document.getElementById("searchInput").value.toLowerCase();
+        document.querySelectorAll(".tool-card").forEach(c => {
+        let name = c.getAttribute("data-name");
+        if(name && name.toLowerCase().includes(q)) {
+        c.style.display = "";
+        } else if(q === "") {
+        c.style.display = "";
+        } else {
+        c.style.display = "none";
+        }
+        });
+        }
+        
+        function scrollToTool(toolName) {
+        // تفعيل القسم الرئيسي
+        document.querySelectorAll("section").forEach(s => s.classList.remove("active-section"));
+        document.getElementById("home").classList.add("active-section");
+        
+        // البحث عن الأداة
+        let found = false;
+        document.querySelectorAll(".tool-card").forEach(c => {
+        let name = c.getAttribute("data-name") || "";
+        if(name.includes(toolName) && !found) {
+        c.scrollIntoView({behavior: 'smooth', block: 'center'});
+        c.style.borderColor = 'var(--primary)';
+        c.style.boxShadow = 'var(--shadow-lg)';
+        setTimeout(() => {
+        c.style.borderColor = '';
+        c.style.boxShadow = '';
+        }, 2000);
+        found = true;
+        }
+        });
+        
+        if(!found) {
+        // البحث في قسم المحولات
+        document.getElementById("converters").classList.add("active-section");
+        document.querySelectorAll("#converters .tool-card").forEach(c => {
+        let name = c.getAttribute("data-name") || "";
+        if(name.includes(toolName) && !found) {
+        setTimeout(() => c.scrollIntoView({behavior: 'smooth', block: 'center'}), 100);
+        found = true;
+        }
+        });
+        }
+        }
+        
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+        let btn = document.getElementById("backToTop");
+        if(btn) {
+        if(window.scrollY > 300) btn.classList.add("visible");
+        else btn.classList.remove("visible");
+        }
+        });
+        
+        // ==================== PWA - تثبيت التطبيق ====================
+        window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        setTimeout(() => {
+        document.getElementById("installBanner").style.display = "block";
+        }, 3000);
+        });
+        
+        function installApp() {
+        if(deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+        if(choiceResult.outcome === 'accepted') {
+        showNotification("تم تثبيت التطبيق بنجاح! 🎉");
+        }
+        deferredPrompt = null;
+        document.getElementById("installBanner").style.display = "none";
+        });
+        } else {
+        showNotification("التطبيق مثبت بالفعل أو خاصية التثبيت غير متاحة حالياً");
+        }
+        }
+        
+        // ==================== مؤشر الاتصال ====================
+        function updateOnlineStatus() {
+        let status = document.getElementById("connectionStatus");
+        if(navigator.onLine) {
+        status.className = "connection-status online";
+        status.textContent = "✅ أنت متصل بالإنترنت";
+        setTimeout(() => status.style.display = "none", 2000);
+        } else {
+        status.className = "connection-status offline";
+        status.textContent = "⚠️ أنت غير متصل بالإنترنت - بعض الميزات قد لا تعمل";
+        }
+        }
+        
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // ==================== Service Worker ====================
+        if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+        // إنشاء service worker من كود مضمّن
+        const swCode = `
+        const CACHE_NAME = 'smart-tools-v3.0';
+        self.addEventListener('install', (event) => {
+        event.waitUntil(self.skipWaiting());
+        });
+        self.addEventListener('activate', (event) => {
+        event.waitUntil(self.clients.claim());
+        });
+        self.addEventListener('fetch', (event) => {
+        event.respondWith(
+        fetch(event.request).catch(() => caches.match(event.request))
+        );
+        });
+        `;
+        const blob = new Blob([swCode], {type: 'application/javascript'});
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(err => console.log('SW registration skipped:', err));
+        });
+        }
+        // ==================== شاشة الترحيب ====================
+        (function() {
+        if(localStorage.getItem("tools_terms_accepted") === "true") {
         document.getElementById("termsOverlay").style.display = "none";
-    }
-    document.getElementById("acceptTerms").onclick = () => {
+        }
+        document.getElementById("acceptTerms").onclick = () => {
         localStorage.setItem("tools_terms_accepted", "true");
         document.getElementById("termsOverlay").style.opacity = "0";
         setTimeout(() => document.getElementById("termsOverlay").style.display = "none", 400);
-    };
-})();
-
-// ==================== تهيئة الصفحة عند التحميل ====================
-document.addEventListener("DOMContentLoaded", function() {
-    initLists();
-    loadTheme();
-    updateRealVisitorCount();
-    calculateFullAgeText();
-    document.getElementById("startDate").valueAsDate = new Date("2024-01-01");
-    document.getElementById("endDate").valueAsDate = new Date();
-});
-
-// لتحديث العداد عند إعادة تحميل الصفحة
-if(!sessionStorage.getItem("visitor_counted_tools")) {
-    sessionStorage.setItem("visitor_counted_tools", "true");
-    updateRealVisitorCount();
-}
-</script>
-</body>
-</html>
+        };
+        })();
+        
+        // ==================== اختصارات لوحة المفاتيح ====================
+        document.addEventListener('keydown', function(e) {
+        // Ctrl+K للبحث
+        if((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById("searchInput").focus();
+        }
+        // Escape لإغلاق القائمة
+        if(e.key === 'Escape') {
+        if(document.querySelector(".sidebar.open")) {
+        toggleSidebar();
+        }
+        }
+        });
+        
+        // ==================== شريط التحميل ====================
+        window.addEventListener('load', function() {
+        let loadingBar = document.getElementById("loadingBar");
+        if(loadingBar) {
+        loadingBar.style.width = "100%";
+        setTimeout(() => {
+        loadingBar.style.opacity = "0";
+        setTimeout(() => loadingBar.remove(), 300);
+        }, 500);
+        }
+        });
+        
+        // ==================== تهيئة الصفحة عند التحميل ====================
+        document.addEventListener("DOMContentLoaded", function() {
+        initLists();
+        loadTheme();
+        updateRealVisitorCount();
+        calculateFullAgeText();
+        updateOnlineStatus();
+        switchTimerMode('stopwatch');
+        
+        // تعيين التواريخ الافتراضية
+        let startDate = document.getElementById("startDate");
+        let endDate = document.getElementById("endDate");
+        if(startDate) startDate.valueAsDate = new Date("2024-01-01");
+        if(endDate) endDate.valueAsDate = new Date();
+        
+        // تهيئة عداد الكلمات التلقائي
+        let textInput = document.getElementById("textInput");
+        if(textInput) textInput.addEventListener('input', countWords);
+        
+        console.log("🚀 الأدوات الذكية جاهزة | 35+ أداة | 3 ثيمات | PWA");
+        console.log("⌨️ اختصارات: Ctrl+K للبحث | Esc للإغلاق");
+        });
+        
+        // لتحديث العداد عند إعادة تحميل الصفحة
+        if(!sessionStorage.getItem("visitor_counted_tools")) {
+        sessionStorage.setItem("visitor_counted_tools", "true");
+        updateRealVisitorCount();
+        }
+        </script>
+        </body>
+        </html>
+        
